@@ -1,76 +1,57 @@
 {
   "kind": "build_request",
-  "title": "Add username/password authentication for test creation",
-  "projectName": "IELTS Test Manager",
+  "title": "Update authentication credentials to 'Sayem Ahtesham' and 'sayem_web_deployment'",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-11",
-      "text": "Add authentication requirement for test creation: only users with username 'sayemahtesham' and password '12345678' can create tests. No authentication is required for taking tests or viewing responses.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ],
-        "quotes": [
-          "To create test just username and password is required. Username . sayemahtesham Password . 12345678"
-        ]
-      },
-      "acceptanceCriteria": [
-        "When user clicks 'Create Test' button, a login modal appears requiring username and password",
-        "Successful login with username 'sayemahtesham' and password '12345678' allows access to the test creation panel",
-        "Invalid credentials show an error message and prevent access to test creation",
-        "Students can still take tests and view responses without any authentication",
-        "Authentication state persists during the session so user doesn't need to re-login for multiple test creations"
-      ]
-    },
-    {
-      "id": "REQ-12",
-      "text": "Implement backend authentication validation function that verifies username is 'sayemahtesham' and password is '12345678' before allowing test creation operations.",
+      "id": "REQ-15",
+      "text": "Update the hardcoded authentication credentials in the backend from username 'sayemahtesham' and password '12345678' to username 'Sayem Ahtesham' and password 'sayem_web_deployment'",
       "target": "backend",
       "source": {
         "messageIds": [
           "msg-latest"
         ],
         "quotes": [
-          "Username . sayemahtesham Password . 12345678"
+          "Change the username and password Username . Sayem Ahtesham Password . sayem_web_deployment"
         ]
       },
       "acceptanceCriteria": [
-        "Backend has a validation function that checks provided credentials against hardcoded values",
-        "createTest function only proceeds if credentials are valid",
-        "Invalid credentials return an error response that frontend can display"
+        "Backend authentication validates username as 'Sayem Ahtesham' (case-sensitive)",
+        "Backend authentication validates password as 'sayem_web_deployment'",
+        "Old credentials 'sayemahtesham'/'12345678' no longer authenticate successfully",
+        "Test creation requires the new credentials to succeed"
       ]
     },
     {
-      "id": "REQ-13",
-      "text": "Create a login modal component that appears before test creation, collecting username and password fields with a login button and error message display area.",
+      "id": "REQ-16",
+      "text": "Update the frontend authentication hook to use the new hardcoded credentials: username 'Sayem Ahtesham' and password 'sayem_web_deployment'",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-latest"
+        ],
+        "quotes": [
+          "Change the username and password Username . Sayem Ahtesham Password . sayem_web_deployment"
         ]
       },
       "acceptanceCriteria": [
-        "Login modal appears when 'Create Test' button is clicked and user is not authenticated",
-        "Modal contains username field, password field (masked), and login button",
-        "Modal displays validation errors for incorrect credentials",
-        "Modal closes automatically on successful authentication and opens the test creation panel",
-        "Modal follows the existing minimal white background with soft blue accents design system"
+        "Frontend authentication validates against username 'Sayem Ahtesham' and password 'sayem_web_deployment'",
+        "Login modal accepts and successfully authenticates with the new credentials",
+        "Old credentials no longer work in the login modal",
+        "Session storage stores the new credentials correctly after successful login"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the existing student test-taking flow or response viewer access",
-    "Maintain the single-actor backend architecture",
-    "Do not change existing authentication implementation for Internet Identity if present"
+    "Do not change the authentication mechanism, only update the credential values",
+    "Maintain case-sensitivity for username validation",
+    "Keep the existing session-based authentication flow intact"
   ],
   "nonGoals": [
-    "Implementing a full user registration system",
-    "Adding multiple user accounts or user management",
-    "Encrypting or hashing the password",
-    "Adding password reset functionality",
-    "Implementing role-based access control beyond this single admin user"
+    "Adding multi-user support or database-backed authentication",
+    "Implementing password hashing or encryption",
+    "Adding password reset or recovery functionality",
+    "Changing the authentication UI components"
   ],
   "imageRequirements": {
     "required": [],

@@ -2,14 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-authentication-requirement-for-test-creation-only-users-with-username-sayemahtesham-and-password-12345678-can-create-tests-no-authentication-is-required-for-taking-tests-or-viewing-responses",
-      "featureTitle": "Add authentication requirement for test creation: only users with username 'sayemahtesham' and password '12345678' can create tests. No authentication is required for taking tests or viewing responses.",
+      "featureId": "feature-update-the-frontend-authentication-hook-to-use-the-new-hardcoded-credentials-username-sayem-ahtesham-and-password-sayem-web-deployment",
+      "featureTitle": "Update the frontend authentication hook to use the new hardcoded credentials: username 'Sayem Ahtesham' and password 'sayem_web_deployment'",
       "files": [
-        "frontend/src/components/AuthModal.tsx",
-        "frontend/src/components/CreateTestPanel.tsx",
-        "frontend/src/components/TestManagementPanel.tsx",
-        "frontend/src/hooks/useAuth.ts",
-        "frontend/src/hooks/useQueries.ts"
+        "frontend/src/hooks/useAuth.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -19,25 +15,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-11"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-a-login-modal-component-that-appears-before-test-creation-collecting-username-and-password-fields-with-a-login-button-and-error-message-display-area",
-      "featureTitle": "Create a login modal component that appears before test creation, collecting username and password fields with a login button and error message display area.",
-      "files": [
-        "frontend/src/components/AuthModal.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-13"
+        "REQ-16"
       ],
       "confidence": "high"
     }

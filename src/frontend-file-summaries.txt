@@ -1,5 +1,5 @@
 {
-  "frontend/src/App.tsx": "Main application component managing global state for view modes (welcome, test, results, responses) and coordinating between test management panel and right panel container with header and footer layout.",
+  "frontend/src/App.tsx": "Main application component with updated header title \"IELTS Test Management by Sayem\" and managing global state for view modes (welcome, test, results, responses) with coordinated layout between test management panel and right panel container.",
   "frontend/src/components/Footer.tsx": "Simple footer component displaying \"Powered By Sayem Ahtesham\" centered at the bottom of the page.",
   "frontend/src/components/TestManagementPanel.tsx": "Left sidebar component with Create Test button that triggers authentication modal when user is not authenticated, View Responses button, search input, test type filter dropdown, and scrollable list of test cards with real-time filtering.",
   "frontend/src/components/RightPanelContainer.tsx": "Dynamic right panel container that conditionally renders TestInterface, ResultsPanel, ResponseViewer, or welcome message based on application state.",
@@ -19,6 +19,7 @@
   "frontend/src/hooks/useResponseManagement.ts": "Hook for filtering student responses by search term with memoized results.",
   "frontend/src/index.css": "Global styles with OKLCH color system defining soft blue accent colors on minimal white background for both light and dark modes with professional typography.",
   "frontend/tailwind.config.js": "Tailwind configuration with custom soft blue color palette, border radius, shadows, and smooth animation utilities for professional dashboard aesthetic.",
-  "frontend/src/hooks/useAuth.ts": "Custom hook managing authentication state with login/logout methods, validating credentials against hardcoded values (sayemahtesham/12345678), and persisting auth state in session storage.",
-  "frontend/src/components/AuthModal.tsx": "Login modal component with username and password fields, form validation, error display, and automatic closing on successful authentication using shadcn/ui Dialog component."
+  "frontend/src/hooks/useAuth.ts": "Custom hook managing authentication state with login/logout methods, validating credentials against hardcoded values (Sayem Ahtesham/sayem_web_deployment), and persisting auth state in session storage.",
+  "frontend/src/components/AuthModal.tsx": "Login modal component with username and password fields, form validation, error display, and automatic closing on successful authentication using shadcn/ui Dialog component.",
+  "frontend/index.html": "HTML entry point with updated page title \"IELTS Test Management by Sayem\" to reflect the corrected project name."
 }

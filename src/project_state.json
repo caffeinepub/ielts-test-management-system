@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
+  "projectStateVersion": 9,
   "summary": "IELTS Test Management System - A platform where authenticated users can create IELTS practice tests (Listening, Reading, Writing, Mixed types) and anyone can take tests with automatic scoring, band estimation, and response management",
   "architectural_notes": [
     "React-based frontend with clean component structure",
@@ -9,8 +9,8 @@
     "IELTS band conversion algorithm for automatic scoring (39-40 → Band 9, scaling down to 15-18 → Band 5)",
     "Support for multiple question types: Multiple Choice, True/False/Not Given, Short Answer, Matching, Sentence Completion, Long Answer",
     "Responsive design with minimal white background and soft blue accents",
-    "Authentication required for test creation only (username: sayemahtesham, password: 12345678)",
-    "Test-taking remains open access without login"
+    "Test-taking remains open access without login",
+    "Authentication credentials updated: username 'Sayem Ahtesham', password 'sayem_web_deployment'"
   ],
   "known_issues": [],
   "isFixRequest": false,
@@ -84,6 +84,22 @@
       "title": "Create a login modal component that appears before test creation, collecting username and password fields with a login button and error message display area.",
       "reqIds": [
         "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-project-name-from-test-management-by-sayen-to-test-management-by-sayem-to-correct-the-spelling-in-the-project-identifier",
+      "title": "Update the project name from 'Test Management By Sayen' to 'Test Management By Sayem' to correct the spelling in the project identifier",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-frontend-authentication-hook-to-use-the-new-hardcoded-credentials-username-sayem-ahtesham-and-password-sayem-web-deployment",
+      "title": "Update the frontend authentication hook to use the new hardcoded credentials: username 'Sayem Ahtesham' and password 'sayem_web_deployment'",
+      "reqIds": [
+        "REQ-16"
       ],
       "version": 1
     }
@@ -172,6 +188,20 @@
       "summary": "Implement backend authentication validation function that verifies username is 'sayemahtesham' and password is '12345678' before allowing test creation operations.",
       "reqIds": [
         "REQ-12"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Update authentication credentials to username 'Sayem Ahtesham' and password 'sayem_web_deployment'",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Update the hardcoded authentication credentials in the backend from username 'sayemahtesham' and password '12345678' to username 'Sayem Ahtesham' and password 'sayem_web_deployment'",
+      "reqIds": [
+        "REQ-15"
       ],
       "status": "pending"
     }

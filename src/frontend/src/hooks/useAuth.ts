@@ -6,8 +6,8 @@ interface AuthState {
 }
 
 const AUTH_STORAGE_KEY = 'ielts_auth_state';
-const VALID_USERNAME = 'sayemahtesham';
-const VALID_PASSWORD = '12345678';
+const VALID_USERNAME = 'Sayem Ahtesham';
+const VALID_PASSWORD = 'sayem_web_deployment';
 
 export function useAuth() {
   const [authState, setAuthState] = useState<AuthState>(() => {

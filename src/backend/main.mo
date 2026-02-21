@@ -6,9 +6,7 @@ import Order "mo:core/Order";
 import Iter "mo:core/Iter";
 import Runtime "mo:core/Runtime";
 import Int "mo:core/Int";
-import Migration "migration";
 
-(with migration = Migration.run)
 actor {
   // Data models
   type TestType = {
@@ -72,9 +70,9 @@ actor {
   let tests = Map.empty<Nat, Test>();
   let responses = Map.empty<Nat, StudentResponse>();
 
-  // Authentication function
+  // Authentication function (updated credentials)
   func authenticateUser(creds : AuthCredentials) : Bool {
-    creds.username == "sayemahtesham" and creds.password == "12345678";
+    creds.username == "Sayem Ahtesham" and creds.password == "sayem_web_deployment";
   };
 
   // Test CRUD operations with authentication for create/update/delete
