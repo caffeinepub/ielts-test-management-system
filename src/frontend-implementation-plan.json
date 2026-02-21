@@ -1,0 +1,63 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Add username/password authentication for test creation",
+  "requirements": [
+    {
+      "id": "REQ-11",
+      "summary": "Add authentication requirement for test creation with hardcoded credentials, requiring login modal before test creation while keeping test-taking and response viewing public",
+      "acceptanceCriteria": [
+        "When user clicks 'Create Test' button, a login modal appears requiring username and password",
+        "Successful login with username 'sayemahtesham' and password '12345678' allows access to the test creation panel",
+        "Invalid credentials show an error message and prevent access to test creation",
+        "Students can still take tests and view responses without any authentication",
+        "Authentication state persists during the session so user doesn't need to re-login for multiple test creations"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/AuthModal.tsx",
+          "operation": "create",
+          "description": "Create a login modal component that collects username and password, validates credentials against the hardcoded values, displays error messages for invalid credentials, and closes on successful authentication. The modal follows the existing minimal white background with soft blue accents design system and uses shadcn/ui Dialog component."
+        },
+        {
+          "path": "frontend/src/hooks/useAuth.ts",
+          "operation": "create",
+          "description": "Create authentication state management hook that tracks whether the user is authenticated as admin, provides login/logout methods that validate credentials client-side against 'sayemahtesham' and '12345678', and persists auth state in session storage to maintain authentication across component remounts during the session."
+        },
+        {
+          "path": "frontend/src/components/TestManagementPanel.tsx",
+          "operation": "modify",
+          "description": "Modify the TestManagementPanel to integrate authentication by showing the AuthModal when 'Create Test' button is clicked and user is not authenticated. Only open the CreateTestPanel after successful authentication. Wire in the useAuth hook to check authentication state."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Update the useCreateTest, useUpdateTest, and useDeleteTest mutations to pass AuthCredentials from the useAuth hook to the backend methods (createTest, updateTest, deleteTest) as required by the backend interface."
+        },
+        {
+          "path": "frontend/src/components/CreateTestPanel.tsx",
+          "operation": "modify",
+          "description": "Update CreateTestPanel to receive authentication credentials from parent component and pass them through to the useCreateTest mutation when submitting the test creation form."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Create a login modal component for collecting credentials before test creation",
+      "acceptanceCriteria": [
+        "Login modal appears when 'Create Test' button is clicked and user is not authenticated",
+        "Modal contains username field, password field (masked), and login button",
+        "Modal displays validation errors for incorrect credentials",
+        "Modal closes automatically on successful authentication and opens the test creation panel",
+        "Modal follows the existing minimal white background with soft blue accents design system"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/AuthModal.tsx",
+          "operation": "create",
+          "description": "Create the AuthModal component with controlled form inputs for username and password fields, a login button that validates credentials, error message display area for showing validation errors, and automatic closing behavior on successful authentication. Use shadcn/ui Dialog component for modal structure and Input components for form fields. Verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-21T10:31:36.020Z",
+  "summary": "The implementation successfully adds username/password authentication for test creation. The frontend introduces an AuthModal component, useAuth hook with session persistence, and authentication flow in TestManagementPanel. The backend adds AuthCredentials type and authenticateUser function that validates hardcoded credentials before allowing test creation operations. Student test-taking and response viewing remain unauthenticated as specified.",
+  "missing_requirements": [],
+  "hallucinated_features": [
+    {
+      "description": "Backend authentication applied to updateTest and deleteTest operations",
+      "reason": "REQ-12 only specifies authentication for createTest operations. The requirements do not mention protecting update or delete operations with authentication.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Logout functionality in useAuth hook",
+      "reason": "The BuildRequest non-goals explicitly state not to implement a full user registration system, and the requirements do not mention logout functionality. Authentication state persistence is mentioned but logout is not required.",
+      "evidence": [
+        "frontend/src/hooks/useAuth.ts"
+      ]
+    },
+    {
+      "description": "getCredentials method in useAuth hook that returns the hardcoded credentials",
+      "reason": "The requirements specify authentication validation but do not require exposing or retrieving stored credentials. This method returns the hardcoded username and password which was not requested.",
+      "evidence": [
+        "frontend/src/hooks/useAuth.ts"
+      ]
+    }
+  ],
+  "confidence": 0.92,
+  "changed_files": [
+    "backend/main.mo",
+    "backend/migration.mo",
+    "frontend-file-summaries.txt",
+    "frontend/src/components/AuthModal.tsx",
+    "frontend/src/components/CreateTestPanel.tsx",
+    "frontend/src/components/TestManagementPanel.tsx",
+    "frontend/src/hooks/useAuth.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "project_state.json"
+  ]
+}

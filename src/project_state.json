@@ -1,0 +1,183 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "IELTS Test Management System - A platform where authenticated users can create IELTS practice tests (Listening, Reading, Writing, Mixed types) and anyone can take tests with automatic scoring, band estimation, and response management",
+  "architectural_notes": [
+    "React-based frontend with clean component structure",
+    "Backend database (Firebase/Supabase/local storage) for persistent test and response storage",
+    "Custom footer: 'Powered By Sayem Ahtesham' (centered)",
+    "IELTS band conversion algorithm for automatic scoring (39-40 → Band 9, scaling down to 15-18 → Band 5)",
+    "Support for multiple question types: Multiple Choice, True/False/Not Given, Short Answer, Matching, Sentence Completion, Long Answer",
+    "Responsive design with minimal white background and soft blue accents",
+    "Authentication required for test creation only (username: sayemahtesham, password: 12345678)",
+    "Test-taking remains open access without login"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-two-column-professional-layout-with-left-column-containing-create-test-button-test-list-with-search-bar-and-filter-by-test-type-listening-reading-writing-mixed-and-right-column-containing-test-interface-submission-panel-and-response-viewer-use-minimal-white-background-with-soft-blue-accents-in-a-clean-dashboard-style-ensure-full-responsiveness-for-mobile-and-desktop-viewports",
+      "title": "Create a two-column professional layout with left column containing Create Test button, test list with search bar and filter by test type (Listening/Reading/Writing/Mixed), and right column containing test interface, submission panel, and response viewer. Use minimal white background with soft blue accents in a clean dashboard style. Ensure full responsiveness for mobile and desktop viewports.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-test-creation-panel-allowing-anyone-to-create-tests-without-authentication-include-required-fields-for-test-title-test-type-dropdown-listening-reading-writing-mixed-instructions-passage-with-rich-text-editor-support-and-dynamic-question-builder-supporting-multiple-choice-true-false-not-given-short-answer-matching-sentence-completion-for-reading-listening-and-long-answer-for-writing-each-question-must-include-correct-answer-field-marks-per-question-default-1-and-an-add-question-button-to-dynamically-add-more-questions-save-button-adds-test-to-backend-and-immediately-displays-it-in-the-test-list",
+      "title": "Build a test creation panel allowing anyone to create tests without authentication. Include required fields for test title, test type dropdown (Listening/Reading/Writing/Mixed), instructions/passage with rich text editor support, and dynamic question builder supporting Multiple Choice, True/False/Not Given, Short Answer, Matching, Sentence Completion (for Reading/Listening) and Long Answer (for Writing). Each question must include correct answer field, marks per question (default 1), and an Add Question button to dynamically add more questions. Save button adds test to backend and immediately displays it in the test list.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-student-test-taking-flow-requiring-students-to-enter-full-name-and-batch-number-before-starting-any-test-during-the-test-display-timer-with-optional-toggle-navigation-between-questions-and-auto-save-answers-temporarily-after-submission-instantly-display-results-without-page-reload-showing-score-estimated-ielts-band-correct-answers-with-toggle-show-hide-student-answers-accuracy-percentage-time-taken-and-highlight-correct-answers-in-green-and-wrong-answers-in-red",
+      "title": "Implement student test-taking flow requiring students to enter full name and batch number before starting any test. During the test, display timer with optional toggle, navigation between questions, and auto-save answers temporarily. After submission, instantly display results without page reload showing score, estimated IELTS band, correct answers (with toggle show/hide), student answers, accuracy percentage, time taken, and highlight correct answers in green and wrong answers in red.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-response-viewer-panel-accessible-without-login-showing-all-student-submissions-with-filters-and-search-display-student-name-batch-number-test-name-submission-date-score-band-estimate-and-full-answer-sheet-provide-options-to-delete-individual-responses-and-export-responses-as-pdf-ensure-panel-is-integrated-into-the-right-column-layout",
+      "title": "Create a response viewer panel accessible without login showing all student submissions with filters and search. Display student name, batch number, test name, submission date, score, band estimate, and full answer sheet. Provide options to delete individual responses and export responses as PDF. Ensure panel is integrated into the right column layout.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-search-functionality-and-filter-by-test-type-listening-reading-writing-mixed-in-the-test-list-on-the-left-column-search-should-filter-tests-by-title-in-real-time-and-filter-dropdown-should-show-only-tests-matching-the-selected-type",
+      "title": "Implement search functionality and filter by test type (Listening/Reading/Writing/Mixed) in the test list on the left column. Search should filter tests by title in real-time, and filter dropdown should show only tests matching the selected type.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-all-default-caffeine-ai-branding-from-the-application-replace-footer-text-with-powered-by-sayem-ahtesham-centered-at-the-bottom-of-the-page-in-a-professional-style",
+      "title": "Remove all default Caffeine AI branding from the application. Replace footer text with 'Powered By Sayem Ahtesham' centered at the bottom of the page in a professional style.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-visual-design-with-professional-typography-smooth-animations-for-interactions-like-opening-modals-transitioning-between-views-highlighting-answers-and-responsive-dashboard-ui-that-works-seamlessly-on-mobile-and-desktop-ensure-all-ui-elements-follow-the-minimal-white-background-with-soft-blue-accents-color-scheme",
+      "title": "Apply a cohesive visual design with professional typography, smooth animations for interactions (like opening modals, transitioning between views, highlighting answers), and responsive dashboard UI that works seamlessly on mobile and desktop. Ensure all UI elements follow the minimal white background with soft blue accents color scheme.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-authentication-requirement-for-test-creation-only-users-with-username-sayemahtesham-and-password-12345678-can-create-tests-no-authentication-is-required-for-taking-tests-or-viewing-responses",
+      "title": "Add authentication requirement for test creation: only users with username 'sayemahtesham' and password '12345678' can create tests. No authentication is required for taking tests or viewing responses.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-login-modal-component-that-appears-before-test-creation-collecting-username-and-password-fields-with-a-login-button-and-error-message-display-area",
+      "title": "Create a login modal component that appears before test creation, collecting username and password fields with a login button and error message display area.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Two-column layout with test creation/list on left, test interface on right",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Test creation panel with title, type, instructions, and multiple question types",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Student flow requiring name and batch number before test start",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Automatic scoring system with IELTS band conversion for Reading/Listening",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Response viewer panel showing all submissions with export to PDF",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Search and filter tests by type (Listening/Reading/Writing/Mixed)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Timer toggle, auto-save answers, and question navigation during test",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Results display with score, band, correct/wrong answers highlighted",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Implement backend data models and CRUD operations for tests with fields: test ID, title, test type (Listening/Reading/Writing/Mixed), instructions/passage, array of questions where each question includes question text, question type (Multiple Choice/True False Not Given/Short Answer/Matching/Sentence Completion/Long Answer), options array (for multiple choice), correct answer, and marks (default 1). All tests must persist permanently until explicitly deleted.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Implement backend data models and CRUD operations for student responses with fields: response ID, student name, batch number, test ID, submission timestamp, array of answers (question ID mapped to student answer), total score, total correct, total wrong, estimated IELTS band, and time taken. All responses must persist permanently until explicitly deleted.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Implement automatic scoring logic in the backend that compares student answers with correct answers for Reading and Listening question types (Multiple Choice, True/False/Not Given, Short Answer, Matching, Sentence Completion), calculates total correct, total wrong, total score out of maximum marks, and estimates IELTS band using the conversion table: 39-40→Band 9, 37-38→Band 8.5, 35-36→Band 8, 33-34→Band 7.5, 30-32→Band 7, 27-29→Band 6.5, 23-26→Band 6, 19-22→Band 5.5, 15-18→Band 5. Writing Long Answer questions should not be scored automatically.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Implement authentication system requiring username and password (sayemahtesham/12345678) to create tests",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Implement backend authentication validation function that verifies username is 'sayemahtesham' and password is '12345678' before allowing test creation operations.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "IELTS Test Management System",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
