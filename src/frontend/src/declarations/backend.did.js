@@ -8,6 +8,17 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
+export const _CaffeineStorageCreateCertificateResult = IDL.Record({
+  'method' : IDL.Text,
+  'blob_hash' : IDL.Text,
+});
+export const _CaffeineStorageRefillInformation = IDL.Record({
+  'proposed_top_up_amount' : IDL.Opt(IDL.Nat),
+});
+export const _CaffeineStorageRefillResult = IDL.Record({
+  'success' : IDL.Opt(IDL.Bool),
+  'topped_up_amount' : IDL.Opt(IDL.Nat),
+});
 export const Answer = IDL.Record({
   'answer' : IDL.Text,
   'questionId' : IDL.Nat,
@@ -35,6 +46,12 @@ export const TestType = IDL.Variant({
   'writing' : IDL.Null,
   'listening' : IDL.Null,
 });
+export const ExternalBlob = IDL.Vec(IDL.Nat8);
+export const Media = IDL.Record({
+  'blob' : ExternalBlob,
+  'description' : IDL.Text,
+  'mediaType' : IDL.Variant({ 'audio' : IDL.Null, 'image' : IDL.Null }),
+});
 export const QuestionType = IDL.Variant({
   'sentenceCompletion' : IDL.Null,
   'shortAnswer' : IDL.Null,
@@ -46,6 +63,7 @@ export const QuestionType = IDL.Variant({
 export const Question = IDL.Record({
   'id' : IDL.Nat,
   'marks' : IDL.Nat,
+  'media' : IDL.Opt(Media),
   'text' : IDL.Text,
   'correctAnswer' : IDL.Text,
   'questionType' : QuestionType,
@@ -60,6 +78,32 @@ export const Test = IDL.Record({
 });
 
 export const idlService = IDL.Service({
+  '_caffeineStorageBlobIsLive' : IDL.Func(
+      [IDL.Vec(IDL.Nat8)],
+      [IDL.Bool],
+      ['query'],
+    ),
+  '_caffeineStorageBlobsToDelete' : IDL.Func(
+      [],
+      [IDL.Vec(IDL.Vec(IDL.Nat8))],
+      ['query'],
+    ),
+  '_caffeineStorageConfirmBlobDeletion' : IDL.Func(
+      [IDL.Vec(IDL.Vec(IDL.Nat8))],
+      [],
+      [],
+    ),
+  '_caffeineStorageCreateCertificate' : IDL.Func(
+      [IDL.Text],
+      [_CaffeineStorageCreateCertificateResult],
+      [],
+    ),
+  '_caffeineStorageRefillCashier' : IDL.Func(
+      [IDL.Opt(_CaffeineStorageRefillInformation)],
+      [_CaffeineStorageRefillResult],
+      [],
+    ),
+  '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
   'createStudentResponse' : IDL.Func([StudentResponse], [], []),
   'createTest' : IDL.Func([AuthCredentials, Test], [], []),
   'deleteStudentResponse' : IDL.Func([IDL.Nat], [], []),
@@ -99,6 +143,17 @@ export const idlService = IDL.Service({
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
+  const _CaffeineStorageCreateCertificateResult = IDL.Record({
+    'method' : IDL.Text,
+    'blob_hash' : IDL.Text,
+  });
+  const _CaffeineStorageRefillInformation = IDL.Record({
+    'proposed_top_up_amount' : IDL.Opt(IDL.Nat),
+  });
+  const _CaffeineStorageRefillResult = IDL.Record({
+    'success' : IDL.Opt(IDL.Bool),
+    'topped_up_amount' : IDL.Opt(IDL.Nat),
+  });
   const Answer = IDL.Record({ 'answer' : IDL.Text, 'questionId' : IDL.Nat });
   const StudentResponse = IDL.Record({
     'id' : IDL.Nat,
@@ -123,6 +178,12 @@ export const idlFactory = ({ IDL }) => {
     'writing' : IDL.Null,
     'listening' : IDL.Null,
   });
+  const ExternalBlob = IDL.Vec(IDL.Nat8);
+  const Media = IDL.Record({
+    'blob' : ExternalBlob,
+    'description' : IDL.Text,
+    'mediaType' : IDL.Variant({ 'audio' : IDL.Null, 'image' : IDL.Null }),
+  });
   const QuestionType = IDL.Variant({
     'sentenceCompletion' : IDL.Null,
     'shortAnswer' : IDL.Null,
@@ -134,6 +195,7 @@ export const idlFactory = ({ IDL }) => {
   const Question = IDL.Record({
     'id' : IDL.Nat,
     'marks' : IDL.Nat,
+    'media' : IDL.Opt(Media),
     'text' : IDL.Text,
     'correctAnswer' : IDL.Text,
     'questionType' : QuestionType,
@@ -148,6 +210,32 @@ export const idlFactory = ({ IDL }) => {
   });
   
   return IDL.Service({
+    '_caffeineStorageBlobIsLive' : IDL.Func(
+        [IDL.Vec(IDL.Nat8)],
+        [IDL.Bool],
+        ['query'],
+      ),
+    '_caffeineStorageBlobsToDelete' : IDL.Func(
+        [],
+        [IDL.Vec(IDL.Vec(IDL.Nat8))],
+        ['query'],
+      ),
+    '_caffeineStorageConfirmBlobDeletion' : IDL.Func(
+        [IDL.Vec(IDL.Vec(IDL.Nat8))],
+        [],
+        [],
+      ),
+    '_caffeineStorageCreateCertificate' : IDL.Func(
+        [IDL.Text],
+        [_CaffeineStorageCreateCertificateResult],
+        [],
+      ),
+    '_caffeineStorageRefillCashier' : IDL.Func(
+        [IDL.Opt(_CaffeineStorageRefillInformation)],
+        [_CaffeineStorageRefillResult],
+        [],
+      ),
+    '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
     'createStudentResponse' : IDL.Func([StudentResponse], [], []),
     'createTest' : IDL.Func([AuthCredentials, Test], [], []),
     'deleteStudentResponse' : IDL.Func([IDL.Nat], [], []),

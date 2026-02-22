@@ -1,11 +1,13 @@
 # Specification
 
 ## Summary
-**Goal:** Update authentication credentials to use new username and password.
+**Goal:** Enhance the IELTS test interface with a 2-column reading layout, file upload capabilities for Writing and Listening tests, and automatic fullscreen mode during tests.
 
 **Planned changes:**
-- Change backend authentication to validate username 'Sayem Ahtesham' and password 'sayem_web_deployment'
-- Update frontend authentication to use the new credentials
-- Remove support for old credentials 'sayemahtesham'/'12345678'
+- Implement 2-column layout for Reading tests with passage on the left and questions on the right
+- Add file upload functionality for images and audio files in Writing test creation
+- Add file upload functionality for images and audio files in Listening test creation
+- Implement automatic fullscreen mode when a test is started
+- Add an exit fullscreen button visible during tests
 
-**User-visible outcome:** Users must log in with the new credentials ('Sayem Ahtesham' / 'sayem_web_deployment') to access the application. The old credentials will no longer work.
+**User-visible outcome:** Users can take Reading tests with passage and questions displayed side-by-side, instructors can upload images and audio files to Writing and Listening tests, and the test interface automatically goes fullscreen when tests start with an option to exit fullscreen if needed.

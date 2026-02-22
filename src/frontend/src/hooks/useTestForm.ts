@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Test, Question, TestType, QuestionType } from '../backend';
+import type { Test, Question, TestType, QuestionType, Variant_audio_image } from '../backend';
 
 export interface QuestionFormData {
   id: number;
@@ -8,6 +8,11 @@ export interface QuestionFormData {
   options: string[];
   correctAnswer: string;
   marks: number;
+  media?: {
+    blob: any;
+    mediaType: Variant_audio_image;
+    description: string;
+  } | null;
 }
 
 interface TestFormState {
@@ -37,6 +42,7 @@ export function useTestForm() {
       options: [],
       correctAnswer: '',
       marks: 1,
+      media: null,
     };
     setFormState((prev) => ({
       ...prev,
@@ -124,14 +130,27 @@ export function useTestForm() {
       title: formState.title,
       testType: testTypeMap[formState.testType],
       instructions: formState.instructions,
-      questions: formState.questions.map((q) => ({
-        id: BigInt(q.id),
-        text: q.text,
-        questionType: questionTypeMap[q.questionType],
-        options: q.options,
-        correctAnswer: q.correctAnswer,
-        marks: BigInt(q.marks),
-      })),
+      questions: formState.questions.map((q) => {
+        const baseQuestion: Question = {
+          id: BigInt(q.id),
+          text: q.text,
+          questionType: questionTypeMap[q.questionType],
+          options: q.options,
+          correctAnswer: q.correctAnswer,
+          marks: BigInt(q.marks),
+        };
+
+        // Add media if present
+        if (q.media && q.media.blob) {
+          baseQuestion.media = {
+            blob: q.media.blob,
+            mediaType: q.media.mediaType,
+            description: q.media.description,
+          };
+        }
+
+        return baseQuestion;
+      }),
     };
   };
 

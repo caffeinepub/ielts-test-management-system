@@ -1,22 +1,116 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update authentication credentials to 'Sayem Ahtesham' and 'sayem_web_deployment'",
+  "title": "Add 2-column reading layout, file uploads, and fullscreen mode",
   "requirements": [
     {
-      "id": "REQ-16",
-      "summary": "Update the frontend authentication hook to use the new hardcoded credentials: username 'Sayem Ahtesham' and password 'sayem_web_deployment'",
+      "id": "REQ-1",
+      "summary": "Implement a 2-column layout for Reading tests with passage on left and questions on right",
       "acceptanceCriteria": [
-        "Frontend authentication validates against username 'Sayem Ahtesham' and password 'sayem_web_deployment'",
-        "Login modal accepts and successfully authenticates with the new credentials",
-        "Old credentials no longer work in the login modal",
-        "Session storage stores the new credentials correctly after successful login"
+        "Reading test interface displays passage in left column",
+        "Reading test interface displays questions in right column",
+        "Layout is responsive and maintains readability",
+        "Both panels are scrollable independently if content overflows"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/hooks/useAuth.ts",
+          "path": "frontend/src/components/TestInterface.tsx",
           "operation": "modify",
-          "description": "Update the hardcoded authentication credentials from username 'sayemahtesham' and password '12345678' to username 'Sayem Ahtesham' and password 'sayem_web_deployment'. Maintain case-sensitivity for username validation and keep the existing session-based authentication flow intact."
+          "description": "Add conditional 2-column layout rendering when test type is 'reading'. Wrap the reading test content in a flex container with left panel for passage text and right panel for questions. Ensure both panels have independent scrolling with overflow-auto. Keep existing single-column layout for writing and listening tests."
+        },
+        {
+          "path": "frontend/src/components/ReadingTestLayout.tsx",
+          "operation": "create",
+          "description": "Create a new component that renders the 2-column layout specifically for reading tests. Accept passage text (from test instructions or first question) and questions array as props. Left panel displays passage with proper typography and scrolling. Right panel renders TestQuestionDisplay components. Use CSS Grid or Flexbox for responsive layout that maintains readability on various screen sizes."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Add file upload capability for Writing tests to support images and audio files in questions",
+      "acceptanceCriteria": [
+        "Writing test creation form includes file upload option",
+        "Supports image file formats (PNG, JPG, JPEG, GIF)",
+        "Supports audio file formats (MP3, WAV, OGG)",
+        "Uploaded files are stored and associated with specific questions",
+        "Uploaded files display correctly during test taking"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/QuestionBuilder.tsx",
+          "operation": "modify",
+          "description": "Add file upload UI elements to the question builder form when creating writing test questions. Use the blob-storage component's ExternalBlob class to handle file uploads. Include file input accepting image formats (PNG, JPG, JPEG, GIF) and audio formats (MP3, WAV, OGG). Display upload progress using withUploadProgress method. Store the uploaded blob reference in the question's media field. Verify the blob-storage component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/TestQuestionDisplay.tsx",
+          "operation": "modify",
+          "description": "Add rendering logic to display media files attached to questions during test taking. When a question has a media field, check the mediaType (image or audio) and render appropriately. For images, use ExternalBlob.getDirectURL() to display via img tag. For audio, use ExternalBlob.getDirectURL() with audio element controls. Ensure media displays above or beside the question text for writing tests."
+        },
+        {
+          "path": "frontend/src/hooks/useTestForm.ts",
+          "operation": "modify",
+          "description": "Update the form state management to handle media field in questions. Add validation for uploaded files to ensure they match accepted formats. Handle ExternalBlob instances when converting between form data and backend Test type. Ensure media objects with blob, description, and mediaType are properly structured before submission."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add file upload capability for Listening tests to support images and audio files in questions",
+      "acceptanceCriteria": [
+        "Listening test creation form includes file upload option",
+        "Supports image file formats (PNG, JPG, JPEG, GIF)",
+        "Supports audio file formats (MP3, WAV, OGG)",
+        "Uploaded files are stored and associated with specific questions",
+        "Uploaded files display correctly during test taking"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/QuestionBuilder.tsx",
+          "operation": "modify",
+          "description": "Extend the file upload functionality added for writing tests to also work for listening test questions. Use the same blob-storage component's ExternalBlob class for file handling. Ensure the file input and upload progress tracking work identically for listening test question creation. Store uploaded blob references in the question's media field with appropriate mediaType (audio or image)."
+        },
+        {
+          "path": "frontend/src/components/TestQuestionDisplay.tsx",
+          "operation": "modify",
+          "description": "Extend the media rendering logic added for writing tests to also work for listening test questions. Ensure audio files display prominently for listening tests with playback controls. Images should render clearly when included in listening questions. Use ExternalBlob.getDirectURL() for both image and audio rendering to leverage streaming and caching."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement automatic fullscreen mode activation when a test is started",
+      "acceptanceCriteria": [
+        "Test interface enters fullscreen mode automatically upon test start",
+        "Fullscreen mode covers entire screen without browser chrome",
+        "Fullscreen request handles user permission appropriately"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useFullscreen.ts",
+          "operation": "create",
+          "description": "Create a custom React hook that manages fullscreen state and operations. Implement enterFullscreen function using document.documentElement.requestFullscreen() with error handling for browsers that don't support it or when user denies permission. Implement exitFullscreen function using document.exitFullscreen(). Track fullscreen state using document.fullscreenElement. Add event listener for fullscreenchange to update state when user exits via ESC key."
+        },
+        {
+          "path": "frontend/src/components/TestInterface.tsx",
+          "operation": "modify",
+          "description": "Import and use the useFullscreen hook. Call enterFullscreen automatically when the test starts (after student registration is complete). Handle cases where fullscreen request fails gracefully by allowing test to continue normally. Ensure fullscreen activation doesn't interfere with test timer or question navigation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Add an exit fullscreen button to allow users to leave fullscreen mode during tests",
+      "acceptanceCriteria": [
+        "Exit fullscreen button is visible and accessible during test",
+        "Clicking exit button successfully exits fullscreen mode",
+        "Test continues normally after exiting fullscreen",
+        "Button has clear visual indication of its purpose"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/TestInterface.tsx",
+          "operation": "modify",
+          "description": "Add an exit fullscreen button to the test interface that is visible when in fullscreen mode. Position the button in a fixed location (e.g., top-right corner) so it remains accessible while scrolling through questions. Use an icon (Minimize or ExitFullscreen) with clear label text. Wire the button click to call exitFullscreen from the useFullscreen hook. Conditionally render the button only when document.fullscreenElement is truthy to avoid showing it when not in fullscreen."
         }
       ]
     }

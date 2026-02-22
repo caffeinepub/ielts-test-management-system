@@ -12,9 +12,17 @@ import type { Principal } from '@icp-sdk/core/principal';
 
 export interface Answer { 'answer' : string, 'questionId' : bigint }
 export interface AuthCredentials { 'username' : string, 'password' : string }
+export type ExternalBlob = Uint8Array;
+export interface Media {
+  'blob' : ExternalBlob,
+  'description' : string,
+  'mediaType' : { 'audio' : null } |
+    { 'image' : null },
+}
 export interface Question {
   'id' : bigint,
   'marks' : bigint,
+  'media' : [] | [Media],
   'text' : string,
   'correctAnswer' : string,
   'questionType' : QuestionType,
@@ -50,7 +58,33 @@ export type TestType = { 'reading' : null } |
   { 'mixed' : null } |
   { 'writing' : null } |
   { 'listening' : null };
+export interface _CaffeineStorageCreateCertificateResult {
+  'method' : string,
+  'blob_hash' : string,
+}
+export interface _CaffeineStorageRefillInformation {
+  'proposed_top_up_amount' : [] | [bigint],
+}
+export interface _CaffeineStorageRefillResult {
+  'success' : [] | [boolean],
+  'topped_up_amount' : [] | [bigint],
+}
 export interface _SERVICE {
+  '_caffeineStorageBlobIsLive' : ActorMethod<[Uint8Array], boolean>,
+  '_caffeineStorageBlobsToDelete' : ActorMethod<[], Array<Uint8Array>>,
+  '_caffeineStorageConfirmBlobDeletion' : ActorMethod<
+    [Array<Uint8Array>],
+    undefined
+  >,
+  '_caffeineStorageCreateCertificate' : ActorMethod<
+    [string],
+    _CaffeineStorageCreateCertificateResult
+  >,
+  '_caffeineStorageRefillCashier' : ActorMethod<
+    [[] | [_CaffeineStorageRefillInformation]],
+    _CaffeineStorageRefillResult
+  >,
+  '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
   'createStudentResponse' : ActorMethod<[StudentResponse], undefined>,
   'createTest' : ActorMethod<[AuthCredentials, Test], undefined>,
   'deleteStudentResponse' : ActorMethod<[bigint], undefined>,

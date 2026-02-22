@@ -7,6 +7,13 @@ export interface None {
     __kind__: "None";
 }
 export type Option<T> = Some<T> | None;
+export class ExternalBlob {
+    getBytes(): Promise<Uint8Array<ArrayBuffer>>;
+    getDirectURL(): string;
+    static fromURL(url: string): ExternalBlob;
+    static fromBytes(blob: Uint8Array<ArrayBuffer>): ExternalBlob;
+    withUploadProgress(onProgress: (percentage: number) => void): ExternalBlob;
+}
 export interface AuthCredentials {
     username: string;
     password: string;
@@ -38,10 +45,16 @@ export interface StudentResponse {
 export interface Question {
     id: bigint;
     marks: bigint;
+    media?: Media;
     text: string;
     correctAnswer: string;
     questionType: QuestionType;
     options: Array<string>;
+}
+export interface Media {
+    blob: ExternalBlob;
+    description: string;
+    mediaType: Variant_audio_image;
 }
 export enum QuestionType {
     sentenceCompletion = "sentenceCompletion",
@@ -56,6 +69,10 @@ export enum TestType {
     mixed = "mixed",
     writing = "writing",
     listening = "listening"
+}
+export enum Variant_audio_image {
+    audio = "audio",
+    image = "image"
 }
 export interface backendInterface {
     createStudentResponse(response: StudentResponse): Promise<void>;

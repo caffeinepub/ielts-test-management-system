@@ -6,8 +6,14 @@ import Order "mo:core/Order";
 import Iter "mo:core/Iter";
 import Runtime "mo:core/Runtime";
 import Int "mo:core/Int";
+import MixinStorage "blob-storage/Mixin";
+import Migration "migration";
+import Storage "blob-storage/Storage";
 
+(with migration = Migration.run)
 actor {
+  include MixinStorage();
+
   // Data models
   type TestType = {
     #listening;
@@ -25,6 +31,12 @@ actor {
     #longAnswer;
   };
 
+  type Media = {
+    mediaType : { #image; #audio };
+    blob : Storage.ExternalBlob;
+    description : Text;
+  };
+
   type Question = {
     id : Nat;
     text : Text;
@@ -32,6 +44,7 @@ actor {
     options : [Text];
     correctAnswer : Text;
     marks : Nat;
+    media : ?Media;
   };
 
   type Test = {
@@ -202,3 +215,4 @@ actor {
     responses.values().toArray().map(func(x) { x }).sort(StudentResponse.compareByTimestamp);
   };
 };
+

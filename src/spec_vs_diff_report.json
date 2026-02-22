@@ -1,15 +1,44 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-21T11:36:12.032Z",
-  "summary": "The diff successfully implements both REQ-15 (backend credential update) and REQ-16 (frontend credential update). The backend now authenticates using 'Sayem Ahtesham' and 'sayem_web_deployment', and the frontend authentication hook uses the same credentials. All acceptance criteria appear to be met based on the code changes.",
+  "generatedAt": "2026-02-22T05:28:04.910Z",
+  "summary": "The implementation successfully addresses all five requirements from the BuildRequest. The 2-column reading layout is implemented via ReadingTestLayout component, file upload capability is added to both Writing and Listening tests with image/audio support, and fullscreen mode with exit button is implemented using a custom hook. All acceptance criteria appear to be met based on the diff evidence.",
   "missing_requirements": [],
-  "hallucinated_features": [],
-  "confidence": 0.95,
+  "hallucinated_features": [
+    {
+      "description": "Added migration module (backend/migration.mo) to handle schema migration for the media field",
+      "reason": "Migration logic for upgrading old Question schema to include media field was not requested in BuildRequest. While it may be necessary for deployment, it represents additional infrastructure work beyond the stated requirements.",
+      "evidence": [
+        "backend/migration.mo",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Updated application header title to 'IELTS Test Management by Sayem'",
+      "reason": "Changing the application title/branding was not mentioned in the BuildRequest requirements or acceptance criteria.",
+      "evidence": [
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "description": "Added Footer component displaying 'Powered By Sayem Ahtesham'",
+      "reason": "Adding a footer with branding was not requested in the BuildRequest.",
+      "evidence": [
+        "frontend/src/components/Footer.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.92,
   "changed_files": [
     "backend/main.mo",
+    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/hooks/useAuth.ts",
+    "frontend/src/components/QuestionBuilder.tsx",
+    "frontend/src/components/ReadingTestLayout.tsx",
+    "frontend/src/components/TestInterface.tsx",
+    "frontend/src/components/TestQuestionDisplay.tsx",
+    "frontend/src/hooks/useFullscreen.ts",
+    "frontend/src/hooks/useTestForm.ts",
     "project_state.json"
   ]
 }

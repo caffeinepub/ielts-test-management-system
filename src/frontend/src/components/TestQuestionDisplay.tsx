@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import type { Question } from '../backend';
+import { Variant_audio_image } from '../backend';
 
 interface TestQuestionDisplayProps {
   question: Question;
@@ -25,6 +26,34 @@ export default function TestQuestionDisplay({ question, answer, onAnswerChange }
 
   return (
     <div className="space-y-4">
+      {/* Display media if present */}
+      {question.media && (
+        <div className="mb-4 rounded-lg border bg-muted/50 p-4">
+          {question.media.mediaType === Variant_audio_image.image ? (
+            <div className="space-y-2">
+              <img
+                src={question.media.blob.getDirectURL()}
+                alt={question.media.description || 'Question image'}
+                className="max-h-96 w-full rounded-md object-contain"
+              />
+              {question.media.description && (
+                <p className="text-sm text-muted-foreground">{question.media.description}</p>
+              )}
+            </div>
+          ) : (
+            <div className="space-y-2">
+              <audio controls className="w-full">
+                <source src={question.media.blob.getDirectURL()} />
+                Your browser does not support the audio element.
+              </audio>
+              {question.media.description && (
+                <p className="text-sm text-muted-foreground">{question.media.description}</p>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
       <div>
         <p className="mb-2 text-xs font-medium uppercase text-muted-foreground">
           {getQuestionTypeLabel(question.questionType)}

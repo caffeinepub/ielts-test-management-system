@@ -1,4 +1,5 @@
-import { X, Plus } from 'lucide-react';
+import { useState } from 'react';
+import { X, Plus, Upload, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { QuestionFormData } from '../hooks/useTestForm';
+import { ExternalBlob, Variant_audio_image } from '../backend';
 
 interface QuestionBuilderProps {
   question: QuestionFormData;
@@ -16,6 +18,9 @@ interface QuestionBuilderProps {
 }
 
 export default function QuestionBuilder({ question, index, testType, onChange, onRemove }: QuestionBuilderProps) {
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+
   const updateField = (field: keyof QuestionFormData, value: any) => {
     onChange({ ...question, [field]: value });
   };
@@ -35,6 +40,53 @@ export default function QuestionBuilder({ question, index, testType, onChange, o
     onChange({ ...question, options: newOptions });
   };
 
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    const isImage = file.type.startsWith('image/');
+    const isAudio = file.type.startsWith('audio/');
+    
+    if (!isImage && !isAudio) {
+      alert('Please upload an image (PNG, JPG, JPEG, GIF) or audio file (MP3, WAV, OGG)');
+      return;
+    }
+
+    try {
+      setIsUploading(true);
+      setUploadProgress(0);
+
+      // Read file as bytes
+      const arrayBuffer = await file.arrayBuffer();
+      const bytes = new Uint8Array(arrayBuffer);
+
+      // Create ExternalBlob with upload progress tracking
+      const blob = ExternalBlob.fromBytes(bytes).withUploadProgress((percentage) => {
+        setUploadProgress(percentage);
+      });
+
+      // Update question with media using the correct enum
+      updateField('media', {
+        blob,
+        mediaType: isImage ? Variant_audio_image.image : Variant_audio_image.audio,
+        description: file.name,
+      });
+
+      setUploadProgress(null);
+      setIsUploading(false);
+    } catch (error) {
+      console.error('File upload failed:', error);
+      alert('Failed to upload file. Please try again.');
+      setIsUploading(false);
+      setUploadProgress(null);
+    }
+  };
+
+  const removeMedia = () => {
+    updateField('media', null);
+  };
+
   const availableQuestionTypes = testType === 'writing'
     ? [{ value: 'longAnswer', label: 'Long Answer' }]
     : [
@@ -44,6 +96,8 @@ export default function QuestionBuilder({ question, index, testType, onChange, o
         { value: 'matching', label: 'Matching' },
         { value: 'sentenceCompletion', label: 'Sentence Completion' },
       ];
+
+  const showFileUpload = testType === 'writing' || testType === 'listening';
 
   return (
     <Card>
@@ -83,6 +137,53 @@ export default function QuestionBuilder({ question, index, testType, onChange, o
             />
           </div>
         </div>
+
+        {/* File Upload Section for Writing and Listening */}
+        {showFileUpload && (
+          <div className="space-y-2">
+            <Label>Attach Media (Optional)</Label>
+            {question.media ? (
+              <div className="rounded-lg border bg-muted/50 p-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <p className="text-sm font-medium">
+                      {question.media.mediaType === Variant_audio_image.image ? '🖼️ Image' : '🎵 Audio'}: {question.media.description}
+                    </p>
+                    {question.media.mediaType === Variant_audio_image.image && question.media.blob && (
+                      <img
+                        src={question.media.blob.getDirectURL()}
+                        alt="Preview"
+                        className="mt-2 max-h-32 rounded object-contain"
+                      />
+                    )}
+                  </div>
+                  <Button variant="ghost" size="icon" onClick={removeMedia}>
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                <Input
+                  type="file"
+                  accept="image/png,image/jpeg,image/jpg,image/gif,audio/mp3,audio/wav,audio/ogg,audio/mpeg"
+                  onChange={handleFileUpload}
+                  disabled={isUploading}
+                  className="cursor-pointer"
+                />
+                {isUploading && uploadProgress !== null && (
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Uploading... {uploadProgress}%
+                  </div>
+                )}
+                <p className="text-xs text-muted-foreground">
+                  Supported formats: PNG, JPG, JPEG, GIF, MP3, WAV, OGG
+                </p>
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="space-y-2">
           <Label>Question Text</Label>

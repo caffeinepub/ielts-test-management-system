@@ -1,57 +1,118 @@
 {
   "kind": "build_request",
-  "title": "Update authentication credentials to 'Sayem Ahtesham' and 'sayem_web_deployment'",
+  "title": "Add 2-column reading layout, file uploads, and fullscreen mode",
+  "projectName": "IELTS Test Management",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-15",
-      "text": "Update the hardcoded authentication credentials in the backend from username 'sayemahtesham' and password '12345678' to username 'Sayem Ahtesham' and password 'sayem_web_deployment'",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ],
-        "quotes": [
-          "Change the username and password Username . Sayem Ahtesham Password . sayem_web_deployment"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend authentication validates username as 'Sayem Ahtesham' (case-sensitive)",
-        "Backend authentication validates password as 'sayem_web_deployment'",
-        "Old credentials 'sayemahtesham'/'12345678' no longer authenticate successfully",
-        "Test creation requires the new credentials to succeed"
-      ]
-    },
-    {
-      "id": "REQ-16",
-      "text": "Update the frontend authentication hook to use the new hardcoded credentials: username 'Sayem Ahtesham' and password 'sayem_web_deployment'",
+      "id": "REQ-1",
+      "text": "Implement a 2-column layout for Reading tests where the passage is displayed on the left panel and questions are displayed on the right panel",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-user-request"
         ],
         "quotes": [
-          "Change the username and password Username . Sayem Ahtesham Password . sayem_web_deployment"
+          "On Reading, passage is on the left and questions are on the right panel"
         ]
       },
       "acceptanceCriteria": [
-        "Frontend authentication validates against username 'Sayem Ahtesham' and password 'sayem_web_deployment'",
-        "Login modal accepts and successfully authenticates with the new credentials",
-        "Old credentials no longer work in the login modal",
-        "Session storage stores the new credentials correctly after successful login"
+        "Reading test interface displays passage in left column",
+        "Reading test interface displays questions in right column",
+        "Layout is responsive and maintains readability",
+        "Both panels are scrollable independently if content overflows"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Add file upload capability for Writing tests to allow images and audio files to be included in test questions",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-request"
+        ],
+        "quotes": [
+          "In writing and listening add an option to include files like images, audios"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Writing test creation form includes file upload option",
+        "Supports image file formats (PNG, JPG, JPEG, GIF)",
+        "Supports audio file formats (MP3, WAV, OGG)",
+        "Uploaded files are stored and associated with specific questions",
+        "Uploaded files display correctly during test taking"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add file upload capability for Listening tests to allow images and audio files to be included in test questions",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-request"
+        ],
+        "quotes": [
+          "In writing and listening add an option to include files like images, audios"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Listening test creation form includes file upload option",
+        "Supports image file formats (PNG, JPG, JPEG, GIF)",
+        "Supports audio file formats (MP3, WAV, OGG)",
+        "Uploaded files are stored and associated with specific questions",
+        "Uploaded files display correctly during test taking"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement fullscreen mode that automatically activates when a test is started",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-request"
+        ],
+        "quotes": [
+          "When the test is started, the interface goes fullscreen"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Test interface enters fullscreen mode automatically upon test start",
+        "Fullscreen mode covers entire screen without browser chrome",
+        "Fullscreen request handles user permission appropriately"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add an exit fullscreen button that allows users to leave fullscreen mode during tests",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-request"
+        ],
+        "quotes": [
+          "there also an options to exit full screen"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Exit fullscreen button is visible and accessible during test",
+        "Clicking exit button successfully exits fullscreen mode",
+        "Test continues normally after exiting fullscreen",
+        "Button has clear visual indication of its purpose"
       ]
     }
   ],
   "constraints": [
-    "Do not change the authentication mechanism, only update the credential values",
-    "Maintain case-sensitivity for username validation",
-    "Keep the existing session-based authentication flow intact"
+    "Maintain existing authentication system with hardcoded credentials",
+    "Preserve existing test types (Reading, Writing, Listening)",
+    "Keep existing scoring and IELTS band calculation logic intact",
+    "Do not modify immutable frontend paths (useInternetIdentity, useActor, main.tsx, components/ui)"
   ],
   "nonGoals": [
-    "Adding multi-user support or database-backed authentication",
-    "Implementing password hashing or encryption",
-    "Adding password reset or recovery functionality",
-    "Changing the authentication UI components"
+    "Changing the authentication mechanism",
+    "Modifying the scoring algorithm",
+    "Adding new test types beyond Reading, Writing, and Listening",
+    "Implementing video file uploads",
+    "Adding collaborative features or multi-user test taking"
   ],
   "imageRequirements": {
     "required": [],
