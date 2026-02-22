@@ -66,8 +66,8 @@ export default function TestQuestionDisplay({ question, answer, onAnswerChange }
           <div className="space-y-2">
             {question.options.map((option, index) => (
               <div key={index} className="flex items-center space-x-2">
-                <RadioGroupItem value={option} id={`option-${index}`} />
-                <Label htmlFor={`option-${index}`} className="cursor-pointer font-normal">
+                <RadioGroupItem value={option} id={`${question.id}-option-${index}`} />
+                <Label htmlFor={`${question.id}-option-${index}`} className="cursor-pointer font-normal">
                   {option}
                 </Label>
               </div>
@@ -81,8 +81,8 @@ export default function TestQuestionDisplay({ question, answer, onAnswerChange }
           <div className="space-y-2">
             {['True', 'False', 'Not Given'].map((option) => (
               <div key={option} className="flex items-center space-x-2">
-                <RadioGroupItem value={option} id={`tfng-${option}`} />
-                <Label htmlFor={`tfng-${option}`} className="cursor-pointer font-normal">
+                <RadioGroupItem value={option} id={`${question.id}-tfng-${option}`} />
+                <Label htmlFor={`${question.id}-tfng-${option}`} className="cursor-pointer font-normal">
                   {option}
                 </Label>
               </div>

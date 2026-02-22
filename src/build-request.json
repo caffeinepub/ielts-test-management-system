@@ -1,75 +1,86 @@
 {
   "kind": "build_request",
-  "title": "Fix overlapping UI elements in test interface",
-  "projectName": "IELTS Test Manager",
+  "title": "Auto-advance questions and display in continuous vertical layout",
+  "projectName": "IELTS Test Management",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Fix the scrolling behavior in the reading test layout so that the passage and questions panels can scroll independently without UI elements blending together",
+      "text": "Remove the Next button from the test interface so students no longer need to press it to move to the next question",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-6"
         ],
         "quotes": [
-          "Free to scroll. Here the passage and the question next and previous button and the Powered by sayem Ahtesham is also blended."
+          "To.move on to next Question no next button needed to press"
         ]
       },
       "acceptanceCriteria": [
-        "The passage section scrolls independently without affecting other UI elements",
-        "The question section scrolls independently without affecting other UI elements",
-        "No visual overlap occurs between the passage content and navigation buttons",
-        "No visual overlap occurs between the question content and navigation buttons"
+        "Next button is not visible during test-taking",
+        "Students can still navigate through questions without clicking Next"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Ensure the Next and Previous navigation buttons remain visible and properly positioned without overlapping with the passage or question content",
+      "text": "Display all test questions in a continuous vertical row, one after another, instead of showing one question at a time",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-6"
         ],
         "quotes": [
-          "the question next and previous button and the Powered by sayem Ahtesham is also blended"
+          "Keep them in a row one after another"
         ]
       },
       "acceptanceCriteria": [
-        "Next and Previous buttons are always visible and clickable",
-        "Buttons maintain consistent positioning regardless of content scroll state",
-        "Buttons do not overlap with scrollable content areas"
+        "All questions appear vertically stacked on the same page",
+        "Students can scroll through all questions without pagination",
+        "Answer inputs for all questions are visible simultaneously"
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Fix the footer displaying 'Powered by Sayem Ahtesham' so it does not blend or overlap with the passage, questions, or navigation buttons",
+      "text": "Maintain the reading test two-panel layout with passage on the left and all questions displayed vertically on the right panel",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
-        ],
-        "quotes": [
-          "the Powered by sayem Ahtesham is also blended"
+          "msg-6"
         ]
       },
       "acceptanceCriteria": [
-        "Footer text is clearly visible and readable",
-        "Footer does not overlap with any scrollable content",
-        "Footer maintains proper spacing from navigation buttons",
-        "Footer remains in a fixed position at the bottom of the viewport"
+        "Reading tests continue to show passage in left panel",
+        "All reading test questions appear in continuous vertical scroll in right panel",
+        "Both panels remain independently scrollable"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Update progress tracking and navigation to work with the continuous question display instead of current question index",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Progress indicator reflects which questions have been answered",
+        "Submit button remains accessible after all questions",
+        "Timer and fullscreen controls continue to function correctly"
       ]
     }
   ],
   "constraints": [
-    "Maintain the existing 2-column layout for Reading tests",
-    "Preserve all existing functionality in TestInterface.tsx and ReadingTestLayout.tsx",
-    "Do not modify the backend or data structures"
+    "Preserve the existing two-panel ReadingTestLayout for reading tests",
+    "Maintain all existing question types and media display functionality",
+    "Keep the timer, fullscreen mode, and submit functionality intact",
+    "Do not modify backend test structure or response handling"
   ],
   "nonGoals": [
-    "Changing the overall design or color scheme",
-    "Modifying the test submission or scoring logic",
-    "Adding new features beyond fixing the layout issues"
+    "Changing the test creation or management interfaces",
+    "Modifying authentication or student registration flows",
+    "Altering the results display or scoring logic",
+    "Adding new question types or test formats"
   ],
   "imageRequirements": {
     "required": [],

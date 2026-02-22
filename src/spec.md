@@ -1,11 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Fix overlapping UI elements in the reading test interface to ensure proper scrolling and visibility of all components.
+**Goal:** Redesign the test-taking interface to display all questions in a continuous vertical layout without requiring a Next button.
 
 **Planned changes:**
-- Fix independent scrolling behavior for passage and questions panels to prevent UI elements from blending together
-- Ensure Next and Previous navigation buttons remain visible and properly positioned without overlapping content
-- Fix footer positioning so "Powered by Sayem Ahtesham" text does not blend with passage, questions, or navigation buttons
+- Remove the Next button from the test interface
+- Display all test questions in a continuous vertical scrollable layout instead of one at a time
+- Maintain the two-panel layout for reading tests with passage on left and all questions vertically stacked on right
+- Update progress tracking to work with continuous question display
 
-**User-visible outcome:** Users can smoothly scroll through reading passages and questions independently without any visual overlap or blending of navigation buttons and footer text.
+**User-visible outcome:** Students can see and scroll through all test questions at once without clicking Next buttons. Reading tests show the passage on the left with all questions scrollable on the right.

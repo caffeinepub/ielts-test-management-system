@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import StudentRegistrationModal from './StudentRegistrationModal';
 import TestQuestionDisplay from './TestQuestionDisplay';
 import ReadingTestLayout from './ReadingTestLayout';
@@ -9,7 +10,7 @@ import { useTestTimer } from '../hooks/useTestTimer';
 import { useTestSubmission } from '../hooks/useTestSubmission';
 import { useFullscreen } from '../hooks/useFullscreen';
 import type { Test, Answer } from '../backend';
-import { Clock, Eye, EyeOff, ChevronLeft, ChevronRight, Minimize2 } from 'lucide-react';
+import { Clock, Eye, EyeOff, Minimize2 } from 'lucide-react';
 
 interface TestInterfaceProps {
   test: Test;
@@ -18,7 +19,6 @@ interface TestInterfaceProps {
 
 export default function TestInterface({ test, onComplete }: TestInterfaceProps) {
   const [studentInfo, setStudentInfo] = useState<{ name: string; batch: string } | null>(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showTimer, setShowTimer] = useState(true);
   const { formattedTime, elapsedSeconds, startTimer } = useTestTimer();
@@ -48,9 +48,8 @@ export default function TestInterface({ test, onComplete }: TestInterfaceProps) 
     onComplete(response);
   };
 
-  const currentQuestion = test.questions[currentQuestionIndex];
-  const progress = ((currentQuestionIndex + 1) / test.questions.length) * 100;
   const isReadingTest = test.testType === 'reading';
+  const answeredCount = Object.keys(answers).filter(key => answers[key].trim() !== '').length;
 
   if (!studentInfo) {
     return <StudentRegistrationModal onComplete={handleRegistrationComplete} />;
@@ -114,6 +113,24 @@ export default function TestInterface({ test, onComplete }: TestInterfaceProps) 
             </CardContent>
           </Card>
         )}
+
+        {/* Progress Indicator */}
+        <Card>
+          <CardContent className="py-3">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-muted-foreground">Progress</span>
+              <span className="font-medium">
+                {answeredCount} of {test.questions.length} answered
+              </span>
+            </div>
+            <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-secondary">
+              <div
+                className="h-full bg-primary transition-all duration-300"
+                style={{ width: `${(answeredCount / test.questions.length) * 100}%` }}
+              />
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Scrollable Content Area */}
@@ -122,59 +139,46 @@ export default function TestInterface({ test, onComplete }: TestInterfaceProps) 
           <ReadingTestLayout
             passage={test.instructions}
             questions={test.questions}
-            currentQuestionIndex={currentQuestionIndex}
             answers={answers}
             onAnswerChange={handleAnswerChange}
           />
         ) : (
           <Card className="h-full">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-base">
-                  Question {currentQuestionIndex + 1} of {test.questions.length}
-                </CardTitle>
-                <Badge>{currentQuestion.marks.toString()} mark{currentQuestion.marks !== BigInt(1) ? 's' : ''}</Badge>
-              </div>
-              <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-secondary">
-                <div
-                  className="h-full bg-primary transition-all duration-300"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <TestQuestionDisplay
-                question={currentQuestion}
-                answer={answers[currentQuestion.id.toString()] || ''}
-                onAnswerChange={(answer) => handleAnswerChange(currentQuestion.id.toString(), answer)}
-              />
-            </CardContent>
+            <ScrollArea className="h-full">
+              <CardContent className="space-y-6 p-6">
+                {test.questions.map((question, index) => (
+                  <div key={question.id.toString()} className="space-y-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1">
+                        <div className="mb-2 flex items-center gap-2">
+                          <Badge variant="outline" className="text-sm">
+                            Question {index + 1}
+                          </Badge>
+                          <Badge variant="secondary" className="text-xs">
+                            {question.marks.toString()} mark{question.marks !== BigInt(1) ? 's' : ''}
+                          </Badge>
+                        </div>
+                        <TestQuestionDisplay
+                          question={question}
+                          answer={answers[question.id.toString()] || ''}
+                          onAnswerChange={(answer) => handleAnswerChange(question.id.toString(), answer)}
+                        />
+                      </div>
+                    </div>
+                    {index < test.questions.length - 1 && (
+                      <div className="border-t border-border pt-6" />
+                    )}
+                  </div>
+                ))}
+              </CardContent>
+            </ScrollArea>
           </Card>
         )}
       </div>
 
-      {/* Navigation Buttons - Fixed at Bottom */}
+      {/* Submit Button - Fixed at Bottom */}
       <div className="flex-shrink-0 border-t border-border bg-background pt-4">
-        <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              onClick={() => setCurrentQuestionIndex((prev) => Math.max(0, prev - 1))}
-              disabled={currentQuestionIndex === 0}
-            >
-              <ChevronLeft className="mr-1 h-4 w-4" />
-              Previous
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setCurrentQuestionIndex((prev) => Math.min(test.questions.length - 1, prev + 1))}
-              disabled={currentQuestionIndex === test.questions.length - 1}
-            >
-              Next
-              <ChevronRight className="ml-1 h-4 w-4" />
-            </Button>
-          </div>
-
+        <div className="flex justify-end">
           <Button onClick={handleSubmit} disabled={isSubmitting} size="lg">
             {isSubmitting ? 'Submitting...' : 'Submit Test'}
           </Button>

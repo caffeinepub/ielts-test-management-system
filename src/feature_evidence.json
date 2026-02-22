@@ -2,10 +2,9 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-fix-the-scrolling-behavior-in-the-reading-test-layout-so-that-the-passage-and-questions-panels-can-scroll-independently-without-ui-elements-blending-together",
-      "featureTitle": "Fix the scrolling behavior in the reading test layout so that the passage and questions panels can scroll independently without UI elements blending together",
+      "featureId": "feature-remove-the-next-button-from-the-test-interface-so-students-no-longer-need-to-press-it-to-move-to-the-next-question",
+      "featureTitle": "Remove the Next button from the test interface so students no longer need to press it to move to the next question",
       "files": [
-        "frontend/src/components/ReadingTestLayout.tsx",
         "frontend/src/components/TestInterface.tsx"
       ],
       "components": [
@@ -22,10 +21,11 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-ensure-the-next-and-previous-navigation-buttons-remain-visible-and-properly-positioned-without-overlapping-with-the-passage-or-question-content",
-      "featureTitle": "Ensure the Next and Previous navigation buttons remain visible and properly positioned without overlapping with the passage or question content",
+      "featureId": "feature-display-all-test-questions-in-a-continuous-vertical-row-one-after-another-instead-of-showing-one-question-at-a-time",
+      "featureTitle": "Display all test questions in a continuous vertical row, one after another, instead of showing one question at a time",
       "files": [
-        "frontend/src/components/TestInterface.tsx"
+        "frontend/src/components/TestInterface.tsx",
+        "frontend/src/components/TestQuestionDisplay.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -41,11 +41,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-fix-the-footer-displaying-powered-by-sayem-ahtesham-so-it-does-not-blend-or-overlap-with-the-passage-questions-or-navigation-buttons",
-      "featureTitle": "Fix the footer displaying 'Powered by Sayem Ahtesham' so it does not blend or overlap with the passage, questions, or navigation buttons",
+      "featureId": "feature-maintain-the-reading-test-two-panel-layout-with-passage-on-the-left-and-all-questions-displayed-vertically-on-the-right-panel",
+      "featureTitle": "Maintain the reading test two-panel layout with passage on the left and all questions displayed vertically on the right panel",
       "files": [
-        "frontend/src/components/Footer.tsx",
-        "frontend/src/components/TestInterface.tsx"
+        "frontend/src/components/ReadingTestLayout.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -57,6 +56,25 @@
       ],
       "testIds": [
         "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-progress-tracking-and-navigation-to-work-with-the-continuous-question-display-instead-of-current-question-index",
+      "featureTitle": "Update progress tracking and navigation to work with the continuous question display instead of current question index",
+      "files": [
+        "frontend/src/components/TestInterface.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
       ],
       "confidence": "high"
     }

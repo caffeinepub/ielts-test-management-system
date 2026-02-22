@@ -1,65 +1,73 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix overlapping UI elements in test interface",
+  "title": "Auto-advance questions and display in continuous vertical layout",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Fix scrolling behavior in reading test layout so passage and questions panels scroll independently without UI elements blending together",
+      "summary": "Remove the Next button from the test interface so students no longer need to press it to move to the next question",
       "acceptanceCriteria": [
-        "The passage section scrolls independently without affecting other UI elements",
-        "The question section scrolls independently without affecting other UI elements",
-        "No visual overlap occurs between the passage content and navigation buttons",
-        "No visual overlap occurs between the question content and navigation buttons"
+        "Next button is not visible during test-taking",
+        "Students can still navigate through questions without clicking Next"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/ReadingTestLayout.tsx",
-          "operation": "modify",
-          "description": "Fix the two-panel layout to ensure independent scrolling for passage and questions. Add proper container height constraints with overflow-hidden on the parent and overflow-auto on individual scrollable panels. Set explicit max-height based on viewport height minus header/footer space to prevent content from extending beyond visible area. Ensure each panel (left for passage, right for questions) has its own scrollable container with defined boundaries that do not overlap with navigation controls."
-        },
-        {
           "path": "frontend/src/components/TestInterface.tsx",
           "operation": "modify",
-          "description": "Update the TestInterface layout structure to properly contain the ReadingTestLayout within fixed viewport boundaries. Add flex container with proper height constraints to ensure the reading layout, navigation buttons, and footer each occupy their designated space without overlap. Use flex-shrink-0 on fixed elements (navigation, footer) and flex-grow with overflow-hidden on the scrollable reading test area."
+          "description": "Remove the Next button from the navigation controls. Since all questions will be displayed continuously in a vertical layout, the Next button is no longer needed for question navigation. Keep the Submit button and timer/fullscreen controls intact."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Ensure Next and Previous navigation buttons remain visible and properly positioned without overlapping with passage or question content",
+      "summary": "Display all test questions in a continuous vertical row, one after another, instead of showing one question at a time",
       "acceptanceCriteria": [
-        "Next and Previous buttons are always visible and clickable",
-        "Buttons maintain consistent positioning regardless of content scroll state",
-        "Buttons do not overlap with scrollable content areas"
+        "All questions appear vertically stacked on the same page",
+        "Students can scroll through all questions without pagination",
+        "Answer inputs for all questions are visible simultaneously"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/TestInterface.tsx",
           "operation": "modify",
-          "description": "Position the Next and Previous navigation buttons in a fixed container separate from the scrollable content areas. Use a dedicated navigation bar with fixed positioning or place it in a flex container with flex-shrink-0 to prevent it from being pushed by or overlapping with scrollable content. Add appropriate padding/margin to create clear visual separation between the buttons and the content panels above them. Ensure z-index layering keeps buttons above content but below any modals."
+          "description": "Refactor the test interface to render all questions in a continuous vertical list instead of displaying one question at a time. Map over all questions in the test and render each TestQuestionDisplay component sequentially. Ensure each question's answer input is bound to the corresponding answer state. Remove currentQuestionIndex-based conditional rendering."
+        },
+        {
+          "path": "frontend/src/components/TestQuestionDisplay.tsx",
+          "operation": "modify",
+          "description": "Add a question number display at the top of each question component to help students identify which question they are viewing in the continuous vertical layout. Ensure the component accepts and displays its position in the question list."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Fix footer displaying 'Powered by Sayem Ahtesham' so it does not blend or overlap with passage, questions, or navigation buttons",
+      "summary": "Maintain the reading test two-panel layout with passage on the left and all questions displayed vertically on the right panel",
       "acceptanceCriteria": [
-        "Footer text is clearly visible and readable",
-        "Footer does not overlap with any scrollable content",
-        "Footer maintains proper spacing from navigation buttons",
-        "Footer remains in a fixed position at the bottom of the viewport"
+        "Reading tests continue to show passage in left panel",
+        "All reading test questions appear in continuous vertical scroll in right panel",
+        "Both panels remain independently scrollable"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ReadingTestLayout.tsx",
+          "operation": "modify",
+          "description": "Update the ReadingTestLayout to render all questions in a continuous vertical list in the right panel instead of showing one question at a time. Map over all questions and render each TestQuestionDisplay component with its corresponding answer state. Keep the passage display in the left panel unchanged. Ensure both panels remain independently scrollable."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Update progress tracking and navigation to work with the continuous question display instead of current question index",
+      "acceptanceCriteria": [
+        "Progress indicator reflects which questions have been answered",
+        "Submit button remains accessible after all questions",
+        "Timer and fullscreen controls continue to function correctly"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/TestInterface.tsx",
           "operation": "modify",
-          "description": "Integrate the Footer component into the TestInterface layout with proper containment. Place the Footer in a fixed position container at the bottom of the viewport with flex-shrink-0 to prevent overlap. Add explicit padding-bottom to the main content container to ensure scrollable content does not extend beneath the footer. Ensure the footer has a solid background color and appropriate z-index to remain visible above any content that might scroll beneath it."
-        },
-        {
-          "path": "frontend/src/components/Footer.tsx",
-          "operation": "modify",
-          "description": "Add styling to ensure the Footer component has a solid background, appropriate padding, and proper visual separation from content above it. Consider adding a subtle top border or shadow to clearly delineate the footer from the main content area. Ensure text remains legible with sufficient contrast against the background."
+          "description": "Update the progress tracking logic to calculate and display the number of answered questions out of total questions instead of relying on currentQuestionIndex. Replace question navigation state management with answer tracking logic. Ensure the Submit button is positioned at the bottom of the question list and remains visible. Keep timer and fullscreen controls in their current positions and ensure they continue to function correctly with the new layout."
         }
       ]
     }
