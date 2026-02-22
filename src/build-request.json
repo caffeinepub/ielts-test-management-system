@@ -1,86 +1,54 @@
 {
   "kind": "build_request",
-  "title": "Auto-advance questions and display in continuous vertical layout",
-  "projectName": "IELTS Test Management",
+  "title": "Update authentication credentials",
+  "projectName": "Hexa's Beanibazar",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Remove the Next button from the test interface so students no longer need to press it to move to the next question",
-      "target": "frontend",
+      "text": "Update the hardcoded authentication credentials in the backend to username 'Hexa's Beanibazar' and password 'Hexas@12345'",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-latest"
         ],
         "quotes": [
-          "To.move on to next Question no next button needed to press"
+          "Username . Hexa's Beanibazar",
+          "Password.  Hexas@12345"
         ]
       },
       "acceptanceCriteria": [
-        "Next button is not visible during test-taking",
-        "Students can still navigate through questions without clicking Next"
+        "Backend authentication accepts username 'Hexa's Beanibazar' and password 'Hexas@12345'",
+        "Previous credentials ('Sayem Ahtesham' / 'sayem_web_deployment') are replaced"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Display all test questions in a continuous vertical row, one after another, instead of showing one question at a time",
+      "text": "Update the hardcoded authentication credentials in the frontend useAuth hook to username 'Hexa's Beanibazar' and password 'Hexas@12345' to match the backend",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-latest"
         ],
         "quotes": [
-          "Keep them in a row one after another"
+          "Username . Hexa's Beanibazar",
+          "Password.  Hexas@12345"
         ]
       },
       "acceptanceCriteria": [
-        "All questions appear vertically stacked on the same page",
-        "Students can scroll through all questions without pagination",
-        "Answer inputs for all questions are visible simultaneously"
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Maintain the reading test two-panel layout with passage on the left and all questions displayed vertically on the right panel",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-6"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Reading tests continue to show passage in left panel",
-        "All reading test questions appear in continuous vertical scroll in right panel",
-        "Both panels remain independently scrollable"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Update progress tracking and navigation to work with the continuous question display instead of current question index",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-6"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Progress indicator reflects which questions have been answered",
-        "Submit button remains accessible after all questions",
-        "Timer and fullscreen controls continue to function correctly"
+        "Frontend authentication hook uses username 'Hexa's Beanibazar' and password 'Hexas@12345'",
+        "Credentials match between frontend and backend for successful authentication"
       ]
     }
   ],
   "constraints": [
-    "Preserve the existing two-panel ReadingTestLayout for reading tests",
-    "Maintain all existing question types and media display functionality",
-    "Keep the timer, fullscreen mode, and submit functionality intact",
-    "Do not modify backend test structure or response handling"
+    "Maintain the existing session-based authentication mechanism",
+    "Do not modify the authentication flow logic, only update the credential values"
   ],
   "nonGoals": [
-    "Changing the test creation or management interfaces",
-    "Modifying authentication or student registration flows",
-    "Altering the results display or scoring logic",
-    "Adding new question types or test formats"
+    "Implementing dynamic credential management",
+    "Adding password encryption or hashing",
+    "Creating a user management system"
   ],
   "imageRequirements": {
     "required": [],

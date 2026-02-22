@@ -1,6 +1,6 @@
 {
-  "frontend/src/App.tsx": "Main application component with proper flex layout and overflow constraints ensuring header, main content area, and footer are properly separated with no blending or overlap issues.",
-  "frontend/src/components/Footer.tsx": "Footer component with solid background, z-index layering, and shadow to ensure \"Powered By Sayem Ahtesham\" text remains visible and separated from content above.",
+  "frontend/src/App.tsx": "Main application component with proper flex layout and overflow constraints ensuring header displaying \"HICU\", main content area, and footer are properly separated with no blending or overlap issues.",
+  "frontend/src/components/Footer.tsx": "Footer component displaying \"Powered By Hexa's Beanibazar\" with proper styling and layout.",
   "frontend/src/components/TestManagementPanel.tsx": "Left sidebar component with Create Test button that triggers authentication modal when user is not authenticated, View Responses button, search input, test type filter dropdown, and scrollable list of test cards with real-time filtering.",
   "frontend/src/components/RightPanelContainer.tsx": "Dynamic right panel container with proper height constraints ensuring TestInterface, ResultsPanel, ResponseViewer, or welcome message render within defined boundaries without overflow issues.",
   "frontend/src/components/CreateTestPanel.tsx": "Modal dialog for creating new tests that receives authentication credentials from parent component and passes them to the useCreateTest mutation when submitting the test creation form.",
@@ -19,9 +19,9 @@
   "frontend/src/hooks/useResponseManagement.ts": "Hook for filtering student responses by search term with memoized results.",
   "frontend/src/index.css": "Global styles with OKLCH color system defining soft blue accent colors on minimal white background for both light and dark modes with professional typography.",
   "frontend/tailwind.config.js": "Tailwind configuration with custom soft blue color palette, border radius, shadows, and smooth animation utilities for professional dashboard aesthetic.",
-  "frontend/src/hooks/useAuth.ts": "Custom hook managing authentication state with login/logout methods, validating credentials against hardcoded values (Sayem Ahtesham/sayem_web_deployment), and persisting auth state in session storage.",
+  "frontend/src/hooks/useAuth.ts": "Custom hook managing authentication state with login/logout methods, validating credentials against \"Hexa's Beanibazar\" / \"Hexas@12345\", and persisting auth state in session storage.",
   "frontend/src/components/AuthModal.tsx": "Login modal component with username and password fields, form validation, error display, and automatic closing on successful authentication using shadcn/ui Dialog component.",
-  "frontend/index.html": "HTML entry point with updated page title \"IELTS Test Management by Sayem\" to reflect the corrected project name.",
+  "frontend/index.html": "HTML entry point with updated page title \"Hexa's Beanibazar\" to reflect the new branding.",
   "frontend/src/hooks/useFullscreen.ts": "Custom React hook managing fullscreen state with enter/exit functions and automatic state tracking via fullscreenchange event listener.",
   "frontend/src/components/ReadingTestLayout.tsx": "Two-column layout for reading tests with passage on the left and all questions displayed in a continuous vertical scrollable list on the right panel with question numbers and marks badges."
 }

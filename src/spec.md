@@ -1,12 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Redesign the test-taking interface to display all questions in a continuous vertical layout without requiring a Next button.
+**Goal:** Update authentication credentials to use "Hexa's Beanibazar" username and "Hexas@12345" password.
 
 **Planned changes:**
-- Remove the Next button from the test interface
-- Display all test questions in a continuous vertical scrollable layout instead of one at a time
-- Maintain the two-panel layout for reading tests with passage on left and all questions vertically stacked on right
-- Update progress tracking to work with continuous question display
+- Replace hardcoded backend authentication credentials with username "Hexa's Beanibazar" and password "Hexas@12345"
+- Update frontend authentication hook to match the new backend credentials
 
-**User-visible outcome:** Students can see and scroll through all test questions at once without clicking Next buttons. Reading tests show the passage on the left with all questions scrollable on the right.
+**User-visible outcome:** Users can log in using the username "Hexa's Beanibazar" and password "Hexas@12345" instead of the previous credentials.

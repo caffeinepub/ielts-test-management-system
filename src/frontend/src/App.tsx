@@ -67,7 +67,7 @@ function App() {
     <div className="flex min-h-screen flex-col bg-background">
       <header className="z-20 flex-shrink-0 border-b border-border bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold text-primary">IELTS Test Management by Sayem</h1>
+          <h1 className="text-2xl font-bold text-primary">HICU</h1>
           <p className="text-sm text-muted-foreground">Practice tests with instant scoring and band estimation</p>
         </div>
       </header>

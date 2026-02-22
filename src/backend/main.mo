@@ -10,7 +10,6 @@ import MixinStorage "blob-storage/Mixin";
 
 import Storage "blob-storage/Storage";
 
-
 actor {
   include MixinStorage();
 
@@ -85,7 +84,7 @@ actor {
 
   // Authentication function (updated credentials)
   func authenticateUser(creds : AuthCredentials) : Bool {
-    creds.username == "Sayem Ahtesham" and creds.password == "sayem_web_deployment";
+    creds.username == "Hexa's Beanibazar" and creds.password == "Hexas@12345";
   };
 
   // Test CRUD operations with authentication for create/update/delete
@@ -215,4 +214,3 @@ actor {
     responses.values().toArray().map(func(x) { x }).sort(StudentResponse.compareByTimestamp);
   };
 };
-

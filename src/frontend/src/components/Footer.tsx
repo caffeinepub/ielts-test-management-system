@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="z-10 border-t border-border bg-background py-6 shadow-sm">
       <div className="container mx-auto px-4 text-center">
         <p className="text-sm text-muted-foreground">
-          Powered By <span className="font-semibold text-foreground">Sayem Ahtesham</span>
+          Powered By <span className="font-semibold text-foreground">Hexa's Beanibazar</span>
         </p>
       </div>
     </footer>

@@ -1,71 +1,42 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-22T06:37:15.485Z",
+  "generatedAt": "2026-02-22T09:21:26.741Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 4,
-    "implemented": 4,
+    "total": 2,
+    "implemented": 1,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Remove the Next button from the test interface so students no longer need to press it to move to the next question",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/TestInterface.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/TestInterface.tsx"
-        ]
+        "summary": "Update the hardcoded authentication credentials in the backend to username 'Hexa's Beanibazar' and password 'Hexas@12345'",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
       },
       {
         "id": "REQ-2",
-        "summary": "Display all test questions in a continuous vertical row, one after another, instead of showing one question at a time",
+        "summary": "Update the hardcoded authentication credentials in the frontend useAuth hook to username 'Hexa's Beanibazar' and password 'Hexas@12345' to match the backend",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/TestInterface.tsx",
-          "frontend/src/components/TestQuestionDisplay.tsx"
+          "frontend/src/hooks/useAuth.ts"
         ],
         "matchedFiles": [
-          "frontend/src/components/TestInterface.tsx",
-          "frontend/src/components/TestQuestionDisplay.tsx"
-        ]
-      },
-      {
-        "id": "REQ-3",
-        "summary": "Maintain the reading test two-panel layout with passage on the left and all questions displayed vertically on the right panel",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/ReadingTestLayout.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/ReadingTestLayout.tsx"
-        ]
-      },
-      {
-        "id": "REQ-4",
-        "summary": "Update progress tracking and navigation to work with the continuous question display instead of current question index",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/TestInterface.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/TestInterface.tsx"
+          "frontend/src/hooks/useAuth.ts"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/ReadingTestLayout.tsx",
-    "frontend/src/components/TestInterface.tsx",
-    "frontend/src/components/TestQuestionDisplay.tsx",
+    "frontend/src/hooks/useAuth.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

@@ -7,34 +7,10 @@
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-remove-the-next-button-from-the-test-interface-so-students-no-longer-need-to-press-it-to-move-to-the-next-question",
-      "title": "Remove the Next button from the test interface so students no longer need to press it to move to the next question",
-      "reqIds": [
-        "REQ-1"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-display-all-test-questions-in-a-continuous-vertical-row-one-after-another-instead-of-showing-one-question-at-a-time",
-      "title": "Display all test questions in a continuous vertical row, one after another, instead of showing one question at a time",
+      "id": "feature-update-the-hardcoded-authentication-credentials-in-the-frontend-useauth-hook-to-username-hexa-s-beanibazar-and-password-hexas-12345-to-match-the-backend",
+      "title": "Update the hardcoded authentication credentials in the frontend useAuth hook to username 'Hexa's Beanibazar' and password 'Hexas@12345' to match the backend",
       "reqIds": [
         "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-maintain-the-reading-test-two-panel-layout-with-passage-on-the-left-and-all-questions-displayed-vertically-on-the-right-panel",
-      "title": "Maintain the reading test two-panel layout with passage on the left and all questions displayed vertically on the right panel",
-      "reqIds": [
-        "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-progress-tracking-and-navigation-to-work-with-the-continuous-question-display-instead-of-current-question-index",
-      "title": "Update progress tracking and navigation to work with the continuous question display instead of current question index",
-      "reqIds": [
-        "REQ-4"
       ],
       "version": 1
     }
@@ -42,12 +18,14 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Remove next button requirement, display questions in continuous vertical row",
-      "reqIds": [],
+      "summary": "Update the hardcoded authentication credentials in the backend to username 'Hexa's Beanibazar' and password 'Hexas@12345'",
+      "reqIds": [
+        "REQ-1"
+      ],
       "status": "pending"
     }
   ],
-  "projectName": "IELTS Test Management",
+  "projectName": "Hexa's Beanibazar",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }
