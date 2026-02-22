@@ -7,10 +7,10 @@ import Iter "mo:core/Iter";
 import Runtime "mo:core/Runtime";
 import Int "mo:core/Int";
 import MixinStorage "blob-storage/Mixin";
-import Migration "migration";
+
 import Storage "blob-storage/Storage";
 
-(with migration = Migration.run)
+
 actor {
   include MixinStorage();
 

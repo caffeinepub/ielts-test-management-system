@@ -19,7 +19,11 @@ export default function RightPanelContainer({
   onBackToWelcome,
 }: RightPanelContainerProps) {
   if (appState.viewMode === 'test' && appState.selectedTest) {
-    return <TestInterface test={appState.selectedTest} onComplete={onTestComplete} />;
+    return (
+      <div className="flex h-full min-h-[600px] flex-col">
+        <TestInterface test={appState.selectedTest} onComplete={onTestComplete} />
+      </div>
+    );
   }
 
   if (appState.viewMode === 'results' && appState.currentResponse && appState.selectedTest) {

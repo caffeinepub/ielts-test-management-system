@@ -1,48 +1,34 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Test application with Reading, Writing, and Listening sections",
+  "summary": "IELTS test preparation app with 2-column layout for Reading tests and file upload options for Writing/Listening",
   "architectural_notes": [],
-  "known_issues": [],
-  "isFixRequest": false,
+  "known_issues": [
+    "UI elements (passage, question, next/previous buttons, footer) are blending/overlapping in the current layout"
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
-      "id": "feature-implement-a-2-column-layout-for-reading-tests-where-the-passage-is-displayed-on-the-left-panel-and-questions-are-displayed-on-the-right-panel",
-      "title": "Implement a 2-column layout for Reading tests where the passage is displayed on the left panel and questions are displayed on the right panel",
+      "id": "feature-fix-the-scrolling-behavior-in-the-reading-test-layout-so-that-the-passage-and-questions-panels-can-scroll-independently-without-ui-elements-blending-together",
+      "title": "Fix the scrolling behavior in the reading test layout so that the passage and questions panels can scroll independently without UI elements blending together",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-file-upload-capability-for-writing-tests-to-allow-images-and-audio-files-to-be-included-in-test-questions",
-      "title": "Add file upload capability for Writing tests to allow images and audio files to be included in test questions",
+      "id": "feature-ensure-the-next-and-previous-navigation-buttons-remain-visible-and-properly-positioned-without-overlapping-with-the-passage-or-question-content",
+      "title": "Ensure the Next and Previous navigation buttons remain visible and properly positioned without overlapping with the passage or question content",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-file-upload-capability-for-listening-tests-to-allow-images-and-audio-files-to-be-included-in-test-questions",
-      "title": "Add file upload capability for Listening tests to allow images and audio files to be included in test questions",
+      "id": "feature-fix-the-footer-displaying-powered-by-sayem-ahtesham-so-it-does-not-blend-or-overlap-with-the-passage-questions-or-navigation-buttons",
+      "title": "Fix the footer displaying 'Powered by Sayem Ahtesham' so it does not blend or overlap with the passage, questions, or navigation buttons",
       "reqIds": [
         "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-fullscreen-mode-that-automatically-activates-when-a-test-is-started",
-      "title": "Implement fullscreen mode that automatically activates when a test is started",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-an-exit-fullscreen-button-that-allows-users-to-leave-fullscreen-mode-during-tests",
-      "title": "Add an exit fullscreen button that allows users to leave fullscreen mode during tests",
-      "reqIds": [
-        "REQ-5"
       ],
       "version": 1
     }
@@ -50,24 +36,13 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "2-column layout for Reading tests: passage on left, questions on right",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "File upload option for Writing and Listening (images, audio)",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "Fullscreen mode when test starts with exit option",
+      "summary": "Fix blended/overlapping UI elements in passage and question area (next/previous buttons, footer)",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "IELTS Test Management",
+  "gameProjectType": "none",
+  "projectName": "IELTS Test Manager",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

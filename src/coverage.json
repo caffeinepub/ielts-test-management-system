@@ -1,102 +1,64 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-22T05:28:04.913Z",
+  "generatedAt": "2026-02-22T06:22:42.373Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 5,
-    "implemented": 5,
+    "total": 3,
+    "implemented": 3,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Implement a 2-column layout for Reading tests where the passage is displayed on the left panel and questions are displayed on the right panel",
+        "summary": "Fix the scrolling behavior in the reading test layout so that the passage and questions panels can scroll independently without UI elements blending together",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/TestInterface.tsx",
-          "frontend/src/components/ReadingTestLayout.tsx"
+          "frontend/src/components/ReadingTestLayout.tsx",
+          "frontend/src/components/TestInterface.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/TestInterface.tsx",
-          "frontend/src/components/ReadingTestLayout.tsx"
+          "frontend/src/components/ReadingTestLayout.tsx",
+          "frontend/src/components/TestInterface.tsx"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Add file upload capability for Writing tests to allow images and audio files to be included in test questions",
+        "summary": "Ensure the Next and Previous navigation buttons remain visible and properly positioned without overlapping with the passage or question content",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/QuestionBuilder.tsx",
-          "frontend/src/components/TestQuestionDisplay.tsx",
-          "frontend/src/hooks/useTestForm.ts"
+          "frontend/src/components/TestInterface.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/QuestionBuilder.tsx",
-          "frontend/src/components/TestQuestionDisplay.tsx",
-          "frontend/src/hooks/useTestForm.ts"
+          "frontend/src/components/TestInterface.tsx"
         ]
       },
       {
         "id": "REQ-3",
-        "summary": "Add file upload capability for Listening tests to allow images and audio files to be included in test questions",
+        "summary": "Fix the footer displaying 'Powered by Sayem Ahtesham' so it does not blend or overlap with the passage, questions, or navigation buttons",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/QuestionBuilder.tsx",
-          "frontend/src/components/TestQuestionDisplay.tsx"
+          "frontend/src/components/TestInterface.tsx",
+          "frontend/src/components/Footer.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/QuestionBuilder.tsx",
-          "frontend/src/components/TestQuestionDisplay.tsx"
-        ]
-      },
-      {
-        "id": "REQ-4",
-        "summary": "Implement fullscreen mode that automatically activates when a test is started",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/hooks/useFullscreen.ts",
-          "frontend/src/components/TestInterface.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/hooks/useFullscreen.ts",
-          "frontend/src/components/TestInterface.tsx"
-        ]
-      },
-      {
-        "id": "REQ-5",
-        "summary": "Add an exit fullscreen button that allows users to leave fullscreen mode during tests",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/TestInterface.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/TestInterface.tsx"
+          "frontend/src/components/TestInterface.tsx",
+          "frontend/src/components/Footer.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
-    "backend/blob-storage/Mixin.mo",
-    "backend/blob-storage/Storage.mo",
-    "backend/main.mo",
-    "backend/migration.mo",
     "build-request.json",
-    "caffeine.lock.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/backend.d.ts",
-    "frontend/src/backend.ts",
-    "frontend/src/components/QuestionBuilder.tsx",
+    "frontend/src/App.tsx",
+    "frontend/src/components/Footer.tsx",
     "frontend/src/components/ReadingTestLayout.tsx",
+    "frontend/src/components/RightPanelContainer.tsx",
     "frontend/src/components/TestInterface.tsx",
-    "frontend/src/components/TestQuestionDisplay.tsx",
-    "frontend/src/declarations/backend.did.d.ts",
-    "frontend/src/declarations/backend.did.js",
-    "frontend/src/hooks/useFullscreen.ts",
-    "frontend/src/hooks/useTestForm.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

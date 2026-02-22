@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-implement-a-2-column-layout-for-reading-tests-where-the-passage-is-displayed-on-the-left-panel-and-questions-are-displayed-on-the-right-panel",
-      "featureTitle": "Implement a 2-column layout for Reading tests where the passage is displayed on the left panel and questions are displayed on the right panel",
+      "featureId": "feature-fix-the-scrolling-behavior-in-the-reading-test-layout-so-that-the-passage-and-questions-panels-can-scroll-independently-without-ui-elements-blending-together",
+      "featureTitle": "Fix the scrolling behavior in the reading test layout so that the passage and questions panels can scroll independently without UI elements blending together",
       "files": [
         "frontend/src/components/ReadingTestLayout.tsx",
         "frontend/src/components/TestInterface.tsx"
@@ -22,12 +22,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-file-upload-capability-for-writing-tests-to-allow-images-and-audio-files-to-be-included-in-test-questions",
-      "featureTitle": "Add file upload capability for Writing tests to allow images and audio files to be included in test questions",
+      "featureId": "feature-ensure-the-next-and-previous-navigation-buttons-remain-visible-and-properly-positioned-without-overlapping-with-the-passage-or-question-content",
+      "featureTitle": "Ensure the Next and Previous navigation buttons remain visible and properly positioned without overlapping with the passage or question content",
       "files": [
-        "frontend/src/components/QuestionBuilder.tsx",
-        "frontend/src/components/TestQuestionDisplay.tsx",
-        "frontend/src/hooks/useTestForm.ts"
+        "frontend/src/components/TestInterface.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -43,49 +41,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-file-upload-capability-for-listening-tests-to-allow-images-and-audio-files-to-be-included-in-test-questions",
-      "featureTitle": "Add file upload capability for Listening tests to allow images and audio files to be included in test questions",
+      "featureId": "feature-fix-the-footer-displaying-powered-by-sayem-ahtesham-so-it-does-not-blend-or-overlap-with-the-passage-questions-or-navigation-buttons",
+      "featureTitle": "Fix the footer displaying 'Powered by Sayem Ahtesham' so it does not blend or overlap with the passage, questions, or navigation buttons",
       "files": [
-        "frontend/src/components/QuestionBuilder.tsx",
-        "frontend/src/components/TestQuestionDisplay.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "blob-storage@4.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-fullscreen-mode-that-automatically-activates-when-a-test-is-started",
-      "featureTitle": "Implement fullscreen mode that automatically activates when a test is started",
-      "files": [
-        "frontend/src/components/TestInterface.tsx",
-        "frontend/src/hooks/useFullscreen.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "blob-storage@4.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-an-exit-fullscreen-button-that-allows-users-to-leave-fullscreen-mode-during-tests",
-      "featureTitle": "Add an exit fullscreen button that allows users to leave fullscreen mode during tests",
-      "files": [
+        "frontend/src/components/Footer.tsx",
         "frontend/src/components/TestInterface.tsx"
       ],
       "components": [
@@ -97,7 +56,7 @@
         "blob-storage@4.0.0"
       ],
       "testIds": [
-        "REQ-5"
+        "REQ-3"
       ],
       "confidence": "high"
     }

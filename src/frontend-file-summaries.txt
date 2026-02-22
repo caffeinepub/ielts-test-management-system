@@ -1,11 +1,11 @@
 {
-  "frontend/src/App.tsx": "Main application component with updated header title \"IELTS Test Management by Sayem\" and managing global state for view modes (welcome, test, results, responses) with coordinated layout between test management panel and right panel container.",
-  "frontend/src/components/Footer.tsx": "Simple footer component displaying \"Powered By Sayem Ahtesham\" centered at the bottom of the page.",
+  "frontend/src/App.tsx": "Main application component with proper flex layout and overflow constraints ensuring header, main content area, and footer are properly separated with no blending or overlap issues.",
+  "frontend/src/components/Footer.tsx": "Footer component with solid background, z-index layering, and shadow to ensure \"Powered By Sayem Ahtesham\" text remains visible and separated from content above.",
   "frontend/src/components/TestManagementPanel.tsx": "Left sidebar component with Create Test button that triggers authentication modal when user is not authenticated, View Responses button, search input, test type filter dropdown, and scrollable list of test cards with real-time filtering.",
-  "frontend/src/components/RightPanelContainer.tsx": "Dynamic right panel container that conditionally renders TestInterface, ResultsPanel, ResponseViewer, or welcome message based on application state.",
+  "frontend/src/components/RightPanelContainer.tsx": "Dynamic right panel container with proper height constraints ensuring TestInterface, ResultsPanel, ResponseViewer, or welcome message render within defined boundaries without overflow issues.",
   "frontend/src/components/CreateTestPanel.tsx": "Modal dialog for creating new tests that receives authentication credentials from parent component and passes them to the useCreateTest mutation when submitting the test creation form.",
   "frontend/src/components/QuestionBuilder.tsx": "Question form component with file upload support for writing and listening tests, handling images and audio with upload progress tracking using ExternalBlob and Variant_audio_image enum.",
-  "frontend/src/components/TestInterface.tsx": "Test-taking interface with student registration, timer, question navigation, automatic fullscreen on test start, exit fullscreen button, and conditional 2-column layout for reading tests.",
+  "frontend/src/components/TestInterface.tsx": "Test-taking interface with flexbox layout ensuring header, scrollable content area, and navigation buttons are properly separated with independent scrolling and no overlap, includes student registration, timer, fullscreen controls, and conditional 2-column layout for reading tests.",
   "frontend/src/components/StudentRegistrationModal.tsx": "Modal requiring student name and batch number entry before allowing test start, with form validation.",
   "frontend/src/components/TestQuestionDisplay.tsx": "Component rendering question inputs with media display support for images and audio files using ExternalBlob.getDirectURL() and Variant_audio_image enum for type checking.",
   "frontend/src/components/ResultsPanel.tsx": "Results display showing score, IELTS band, accuracy, time taken, and detailed answer review with correct/wrong highlighting and toggle for showing correct answers.",
@@ -23,5 +23,5 @@
   "frontend/src/components/AuthModal.tsx": "Login modal component with username and password fields, form validation, error display, and automatic closing on successful authentication using shadcn/ui Dialog component.",
   "frontend/index.html": "HTML entry point with updated page title \"IELTS Test Management by Sayem\" to reflect the corrected project name.",
   "frontend/src/hooks/useFullscreen.ts": "Custom React hook managing fullscreen state with enter/exit functions and automatic state tracking via fullscreenchange event listener.",
-  "frontend/src/components/ReadingTestLayout.tsx": "Two-column layout component for reading tests displaying passage in left scrollable panel and questions in right scrollable panel with independent scrolling."
+  "frontend/src/components/ReadingTestLayout.tsx": "Two-column layout component for reading tests with full-height flex containers ensuring passage and questions panels scroll independently within their own ScrollArea components without overlapping other UI elements."
 }

@@ -65,15 +65,15 @@ function App() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <header className="border-b border-border bg-white shadow-sm">
+      <header className="z-20 flex-shrink-0 border-b border-border bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <h1 className="text-2xl font-bold text-primary">IELTS Test Management by Sayem</h1>
           <p className="text-sm text-muted-foreground">Practice tests with instant scoring and band estimation</p>
         </div>
       </header>
 
-      <main className="container mx-auto flex flex-1 flex-col gap-6 px-4 py-6 lg:flex-row">
-        <aside className="w-full lg:w-80 xl:w-96">
+      <main className="container mx-auto flex flex-1 flex-col gap-6 overflow-hidden px-4 py-6 lg:flex-row">
+        <aside className="flex-shrink-0 lg:w-80 xl:w-96">
           <TestManagementPanel
             onTestSelect={handleTestSelect}
             onViewResponses={handleViewResponses}
@@ -81,7 +81,7 @@ function App() {
           />
         </aside>
 
-        <section className="flex-1">
+        <section className="flex min-h-0 flex-1 flex-col">
           <RightPanelContainer
             appState={appState}
             onTestComplete={handleTestComplete}

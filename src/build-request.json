@@ -1,118 +1,75 @@
 {
   "kind": "build_request",
-  "title": "Add 2-column reading layout, file uploads, and fullscreen mode",
-  "projectName": "IELTS Test Management",
+  "title": "Fix overlapping UI elements in test interface",
+  "projectName": "IELTS Test Manager",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Implement a 2-column layout for Reading tests where the passage is displayed on the left panel and questions are displayed on the right panel",
+      "text": "Fix the scrolling behavior in the reading test layout so that the passage and questions panels can scroll independently without UI elements blending together",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-request"
+          "msg-5"
         ],
         "quotes": [
-          "On Reading, passage is on the left and questions are on the right panel"
+          "Free to scroll. Here the passage and the question next and previous button and the Powered by sayem Ahtesham is also blended."
         ]
       },
       "acceptanceCriteria": [
-        "Reading test interface displays passage in left column",
-        "Reading test interface displays questions in right column",
-        "Layout is responsive and maintains readability",
-        "Both panels are scrollable independently if content overflows"
+        "The passage section scrolls independently without affecting other UI elements",
+        "The question section scrolls independently without affecting other UI elements",
+        "No visual overlap occurs between the passage content and navigation buttons",
+        "No visual overlap occurs between the question content and navigation buttons"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Add file upload capability for Writing tests to allow images and audio files to be included in test questions",
-      "target": "both",
+      "text": "Ensure the Next and Previous navigation buttons remain visible and properly positioned without overlapping with the passage or question content",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-request"
+          "msg-5"
         ],
         "quotes": [
-          "In writing and listening add an option to include files like images, audios"
+          "the question next and previous button and the Powered by sayem Ahtesham is also blended"
         ]
       },
       "acceptanceCriteria": [
-        "Writing test creation form includes file upload option",
-        "Supports image file formats (PNG, JPG, JPEG, GIF)",
-        "Supports audio file formats (MP3, WAV, OGG)",
-        "Uploaded files are stored and associated with specific questions",
-        "Uploaded files display correctly during test taking"
+        "Next and Previous buttons are always visible and clickable",
+        "Buttons maintain consistent positioning regardless of content scroll state",
+        "Buttons do not overlap with scrollable content areas"
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Add file upload capability for Listening tests to allow images and audio files to be included in test questions",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-user-request"
-        ],
-        "quotes": [
-          "In writing and listening add an option to include files like images, audios"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Listening test creation form includes file upload option",
-        "Supports image file formats (PNG, JPG, JPEG, GIF)",
-        "Supports audio file formats (MP3, WAV, OGG)",
-        "Uploaded files are stored and associated with specific questions",
-        "Uploaded files display correctly during test taking"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Implement fullscreen mode that automatically activates when a test is started",
+      "text": "Fix the footer displaying 'Powered by Sayem Ahtesham' so it does not blend or overlap with the passage, questions, or navigation buttons",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-request"
+          "msg-5"
         ],
         "quotes": [
-          "When the test is started, the interface goes fullscreen"
+          "the Powered by sayem Ahtesham is also blended"
         ]
       },
       "acceptanceCriteria": [
-        "Test interface enters fullscreen mode automatically upon test start",
-        "Fullscreen mode covers entire screen without browser chrome",
-        "Fullscreen request handles user permission appropriately"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Add an exit fullscreen button that allows users to leave fullscreen mode during tests",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-user-request"
-        ],
-        "quotes": [
-          "there also an options to exit full screen"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Exit fullscreen button is visible and accessible during test",
-        "Clicking exit button successfully exits fullscreen mode",
-        "Test continues normally after exiting fullscreen",
-        "Button has clear visual indication of its purpose"
+        "Footer text is clearly visible and readable",
+        "Footer does not overlap with any scrollable content",
+        "Footer maintains proper spacing from navigation buttons",
+        "Footer remains in a fixed position at the bottom of the viewport"
       ]
     }
   ],
   "constraints": [
-    "Maintain existing authentication system with hardcoded credentials",
-    "Preserve existing test types (Reading, Writing, Listening)",
-    "Keep existing scoring and IELTS band calculation logic intact",
-    "Do not modify immutable frontend paths (useInternetIdentity, useActor, main.tsx, components/ui)"
+    "Maintain the existing 2-column layout for Reading tests",
+    "Preserve all existing functionality in TestInterface.tsx and ReadingTestLayout.tsx",
+    "Do not modify the backend or data structures"
   ],
   "nonGoals": [
-    "Changing the authentication mechanism",
-    "Modifying the scoring algorithm",
-    "Adding new test types beyond Reading, Writing, and Listening",
-    "Implementing video file uploads",
-    "Adding collaborative features or multi-user test taking"
+    "Changing the overall design or color scheme",
+    "Modifying the test submission or scoring logic",
+    "Adding new features beyond fixing the layout issues"
   ],
   "imageRequirements": {
     "required": [],

@@ -57,7 +57,7 @@ export default function TestInterface({ test, onComplete }: TestInterfaceProps) 
   }
 
   return (
-    <div className="space-y-4">
+    <div className="flex h-full flex-col">
       {/* Exit Fullscreen Button */}
       {isFullscreen && (
         <div className="fixed right-4 top-4 z-50">
@@ -73,103 +73,112 @@ export default function TestInterface({ test, onComplete }: TestInterfaceProps) 
         </div>
       )}
 
-      <Card>
-        <CardHeader>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <CardTitle>{test.title}</CardTitle>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Student: {studentInfo.name} | Batch: {studentInfo.batch}
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowTimer(!showTimer)}
-              >
-                {showTimer ? <EyeOff className="mr-1 h-4 w-4" /> : <Eye className="mr-1 h-4 w-4" />}
-                {showTimer ? 'Hide' : 'Show'} Timer
-              </Button>
-              {showTimer && (
-                <Badge variant="secondary" className="flex items-center gap-1 px-3 py-1">
-                  <Clock className="h-3 w-3" />
-                  {formattedTime}
-                </Badge>
-              )}
-            </div>
-          </div>
-        </CardHeader>
-      </Card>
-
-      {!isReadingTest && (
+      {/* Header Card - Fixed */}
+      <div className="flex-shrink-0 space-y-4">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Instructions</CardTitle>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <CardTitle>{test.title}</CardTitle>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Student: {studentInfo.name} | Batch: {studentInfo.batch}
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowTimer(!showTimer)}
+                >
+                  {showTimer ? <EyeOff className="mr-1 h-4 w-4" /> : <Eye className="mr-1 h-4 w-4" />}
+                  {showTimer ? 'Hide' : 'Show'} Timer
+                </Button>
+                {showTimer && (
+                  <Badge variant="secondary" className="flex items-center gap-1 px-3 py-1">
+                    <Clock className="h-3 w-3" />
+                    {formattedTime}
+                  </Badge>
+                )}
+              </div>
+            </div>
           </CardHeader>
-          <CardContent>
-            <p className="whitespace-pre-wrap text-sm">{test.instructions}</p>
-          </CardContent>
         </Card>
-      )}
 
-      {isReadingTest ? (
-        <ReadingTestLayout
-          passage={test.instructions}
-          questions={test.questions}
-          currentQuestionIndex={currentQuestionIndex}
-          answers={answers}
-          onAnswerChange={handleAnswerChange}
-        />
-      ) : (
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-base">
-                Question {currentQuestionIndex + 1} of {test.questions.length}
-              </CardTitle>
-              <Badge>{currentQuestion.marks.toString()} mark{currentQuestion.marks !== BigInt(1) ? 's' : ''}</Badge>
-            </div>
-            <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-secondary">
-              <div
-                className="h-full bg-primary transition-all duration-300"
-                style={{ width: `${progress}%` }}
+        {!isReadingTest && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Instructions</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="whitespace-pre-wrap text-sm">{test.instructions}</p>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+
+      {/* Scrollable Content Area */}
+      <div className="flex-1 overflow-hidden py-4">
+        {isReadingTest ? (
+          <ReadingTestLayout
+            passage={test.instructions}
+            questions={test.questions}
+            currentQuestionIndex={currentQuestionIndex}
+            answers={answers}
+            onAnswerChange={handleAnswerChange}
+          />
+        ) : (
+          <Card className="h-full">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-base">
+                  Question {currentQuestionIndex + 1} of {test.questions.length}
+                </CardTitle>
+                <Badge>{currentQuestion.marks.toString()} mark{currentQuestion.marks !== BigInt(1) ? 's' : ''}</Badge>
+              </div>
+              <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-secondary">
+                <div
+                  className="h-full bg-primary transition-all duration-300"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+            </CardHeader>
+            <CardContent>
+              <TestQuestionDisplay
+                question={currentQuestion}
+                answer={answers[currentQuestion.id.toString()] || ''}
+                onAnswerChange={(answer) => handleAnswerChange(currentQuestion.id.toString(), answer)}
               />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <TestQuestionDisplay
-              question={currentQuestion}
-              answer={answers[currentQuestion.id.toString()] || ''}
-              onAnswerChange={(answer) => handleAnswerChange(currentQuestion.id.toString(), answer)}
-            />
-          </CardContent>
-        </Card>
-      )}
+            </CardContent>
+          </Card>
+        )}
+      </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            onClick={() => setCurrentQuestionIndex((prev) => Math.max(0, prev - 1))}
-            disabled={currentQuestionIndex === 0}
-          >
-            <ChevronLeft className="mr-1 h-4 w-4" />
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() => setCurrentQuestionIndex((prev) => Math.min(test.questions.length - 1, prev + 1))}
-            disabled={currentQuestionIndex === test.questions.length - 1}
-          >
-            Next
-            <ChevronRight className="ml-1 h-4 w-4" />
+      {/* Navigation Buttons - Fixed at Bottom */}
+      <div className="flex-shrink-0 border-t border-border bg-background pt-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setCurrentQuestionIndex((prev) => Math.max(0, prev - 1))}
+              disabled={currentQuestionIndex === 0}
+            >
+              <ChevronLeft className="mr-1 h-4 w-4" />
+              Previous
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setCurrentQuestionIndex((prev) => Math.min(test.questions.length - 1, prev + 1))}
+              disabled={currentQuestionIndex === test.questions.length - 1}
+            >
+              Next
+              <ChevronRight className="ml-1 h-4 w-4" />
+            </Button>
+          </div>
+
+          <Button onClick={handleSubmit} disabled={isSubmitting} size="lg">
+            {isSubmitting ? 'Submitting...' : 'Submit Test'}
           </Button>
         </div>
-
-        <Button onClick={handleSubmit} disabled={isSubmitting} size="lg">
-          {isSubmitting ? 'Submitting...' : 'Submit Test'}
-        </Button>
       </div>
     </div>
   );
