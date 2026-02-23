@@ -90,6 +90,9 @@ export function useTestForm() {
       if (q.questionType === 'multipleChoice' && q.options.length < 2) {
         errors.push(`Question ${index + 1}: At least 2 options are required for multiple choice`);
       }
+      if (q.questionType === 'matching' && q.options.length < 2) {
+        errors.push(`Question ${index + 1}: At least 2 options are required for matching`);
+      }
       if (q.questionType !== 'longAnswer' && !q.correctAnswer.trim()) {
         errors.push(`Question ${index + 1}: Correct answer is required`);
       }
@@ -140,7 +143,7 @@ export function useTestForm() {
           marks: BigInt(q.marks),
         };
 
-        // Add media if present
+        // Add media if present and valid
         if (q.media && q.media.blob) {
           baseQuestion.media = {
             blob: q.media.blob,

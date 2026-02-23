@@ -11,6 +11,7 @@ import { useTestForm } from '../hooks/useTestForm';
 import { useCreateTest } from '../hooks/useQueries';
 import { Textarea } from '@/components/ui/textarea';
 import type { AuthCredentials } from '../backend';
+import { toast } from 'sonner';
 
 interface CreateTestPanelProps {
   onClose: () => void;
@@ -25,23 +26,29 @@ export default function CreateTestPanel({ onClose, credentials }: CreateTestPane
   const handleSave = async () => {
     if (!credentials) {
       setErrors(['Authentication required. Please log in again.']);
+      toast.error('Authentication required');
       return;
     }
 
     const validationErrors = validateForm();
     if (validationErrors.length > 0) {
       setErrors(validationErrors);
+      toast.error('Please fix validation errors');
       return;
     }
 
     try {
+      setErrors([]);
       const backendTest = convertToBackendTest();
       await createTestMutation.mutateAsync({ credentials, test: backendTest });
+      toast.success('Test created successfully');
       resetForm();
       onClose();
     } catch (error) {
+      console.error('Test creation error:', error);
       const errorMessage = error instanceof Error ? error.message : 'Failed to create test. Please try again.';
       setErrors([errorMessage]);
+      toast.error(errorMessage);
     }
   };
 
@@ -128,7 +135,7 @@ export default function CreateTestPanel({ onClose, credentials }: CreateTestPane
         </ScrollArea>
 
         <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
+          <Button variant="outline" onClick={onClose} disabled={createTestMutation.isPending}>
             Cancel
           </Button>
           <Button onClick={handleSave} disabled={createTestMutation.isPending}>

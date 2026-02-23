@@ -1,10 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Update authentication credentials to use "Hexa's Beanibazar" username and "Hexas@12345" password.
+**Goal:** Restore test creation functionality to its previous working state.
 
 **Planned changes:**
-- Replace hardcoded backend authentication credentials with username "Hexa's Beanibazar" and password "Hexas@12345"
-- Update frontend authentication hook to match the new backend credentials
+- Revert recent changes that broke the test creation flow in CreateTestPanel and useTestForm
+- Fix CreateTest mutation to properly handle authentication and backend requests
+- Ensure QuestionBuilder component correctly processes all question types and media uploads
 
-**User-visible outcome:** Users can log in using the username "Hexa's Beanibazar" and password "Hexas@12345" instead of the previous credentials.
+**User-visible outcome:** Users can successfully create tests with all question types, add media, and save tests without errors.

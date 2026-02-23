@@ -1,20 +1,64 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update Frontend Authentication Credentials",
+  "title": "Fix test creation issue - restore previous functionality",
   "requirements": [
     {
-      "id": "REQ-2",
-      "summary": "Update hardcoded authentication credentials in the frontend useAuth hook to username 'Hexa's Beanibazar' and password 'Hexas@12345'",
+      "id": "REQ-1",
+      "summary": "Restore the test creation functionality to its previous working state by reverting any recent changes that broke the test creation flow in CreateTestPanel and useTestForm",
       "acceptanceCriteria": [
-        "Frontend authentication hook uses username 'Hexa's Beanibazar' and password 'Hexas@12345'",
-        "Credentials match between frontend and backend for successful authentication"
+        "Test creation modal opens without errors",
+        "All question types can be added successfully",
+        "Form validation works as expected",
+        "Tests can be saved to the backend without errors"
       ],
       "file_operations": [
         {
+          "path": "frontend/src/components/CreateTestPanel.tsx",
+          "operation": "modify",
+          "description": "Review and fix the test creation modal component to ensure it properly receives and passes authentication credentials to the useCreateTest mutation. Verify the form structure, validation logic, and error handling work correctly. Ensure the modal opens without errors and properly integrates with QuestionBuilder component."
+        },
+        {
+          "path": "frontend/src/hooks/useTestForm.ts",
+          "operation": "modify",
+          "description": "Review and fix the test form state management hook to ensure it properly validates questions, handles media attachments, and converts form state to the backend Test type without errors. Verify all question types are properly supported and the conversion logic matches the backend interface expectations."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Verify that the CreateTest mutation in useQueries properly accepts authentication credentials and creates tests in the backend without validation errors",
+      "acceptanceCriteria": [
+        "CreateTest mutation completes successfully with valid credentials",
+        "Backend main.mo createTest function processes requests without errors",
+        "Created tests appear in the test list immediately after creation"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Review and fix the useCreateTest mutation to ensure it properly accepts AuthCredentials and Test objects, calls the backend createTest capability correctly, and handles success/error responses appropriately. Verify cache invalidation triggers properly so newly created tests appear in the test list immediately."
+        },
+        {
           "path": "frontend/src/hooks/useAuth.ts",
           "operation": "modify",
-          "description": "Update the hardcoded authentication credentials to username 'Hexa's Beanibazar' and password 'Hexas@12345', replacing the previous credentials ('Sayem Ahtesham' / 'sayem_web_deployment'). Maintain the existing session-based authentication mechanism and logic without modifying the authentication flow."
+          "description": "Review the authentication hook to ensure credentials are properly stored in sessionStorage and retrieved correctly for test creation operations. Verify the getCredentials function returns valid AuthCredentials that match the backend interface expectations."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Ensure QuestionBuilder component properly handles all question type configurations and media uploads without breaking the test creation process",
+      "acceptanceCriteria": [
+        "All question types (multiple choice, true/false/not given, short answer, long answer, matching, fill-in-the-blank) work correctly",
+        "Media uploads for images and audio complete successfully",
+        "Question options are properly validated and saved"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/QuestionBuilder.tsx",
+          "operation": "modify",
+          "description": "Review and fix the question builder component to ensure all question types are properly supported with correct field validation. Verify media upload functionality works correctly using the ExternalBlob class with progress tracking. Ensure options management for multiple choice and matching questions works without errors. Use the blob-storage component's ExternalBlob.fromBytes() method for file uploads and verify the component's usage instructions before implementing fixes."
         }
       ]
     }

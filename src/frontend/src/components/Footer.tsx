@@ -5,6 +5,9 @@ export default function Footer() {
         <p className="text-sm text-muted-foreground">
           Powered By <span className="font-semibold text-foreground">Hexa's Beanibazar</span>
         </p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Developed By <span className="text-foreground">Sayem Ahtesham</span>
+        </p>
       </div>
     </footer>
   );

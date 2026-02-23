@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Plus, Upload, Loader2 } from 'lucide-react';
+import { X, Plus, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -195,7 +195,7 @@ export default function QuestionBuilder({ question, index, testType, onChange, o
           />
         </div>
 
-        {question.questionType === 'multipleChoice' && (
+        {(question.questionType === 'multipleChoice' || question.questionType === 'matching') && (
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <Label>Options</Label>

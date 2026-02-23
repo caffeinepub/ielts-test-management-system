@@ -22,10 +22,14 @@ export function useCreateTest() {
   return useMutation({
     mutationFn: async ({ credentials, test }: { credentials: AuthCredentials; test: Test }) => {
       if (!actor) throw new Error('Actor not initialized');
-      await actor.createTest(credentials, test);
+      return await actor.createTest(credentials, test);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tests'] });
+    },
+    onError: (error) => {
+      console.error('Create test error:', error);
+      throw error;
     },
   });
 }
@@ -37,10 +41,14 @@ export function useUpdateTest() {
   return useMutation({
     mutationFn: async ({ credentials, id, test }: { credentials: AuthCredentials; id: bigint; test: Test }) => {
       if (!actor) throw new Error('Actor not initialized');
-      await actor.updateTest(credentials, id, test);
+      return await actor.updateTest(credentials, id, test);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tests'] });
+    },
+    onError: (error) => {
+      console.error('Update test error:', error);
+      throw error;
     },
   });
 }
@@ -52,10 +60,14 @@ export function useDeleteTest() {
   return useMutation({
     mutationFn: async ({ credentials, id }: { credentials: AuthCredentials; id: bigint }) => {
       if (!actor) throw new Error('Actor not initialized');
-      await actor.deleteTest(credentials, id);
+      return await actor.deleteTest(credentials, id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tests'] });
+    },
+    onError: (error) => {
+      console.error('Delete test error:', error);
+      throw error;
     },
   });
 }
@@ -80,10 +92,14 @@ export function useCreateStudentResponse() {
   return useMutation({
     mutationFn: async (response: StudentResponse) => {
       if (!actor) throw new Error('Actor not initialized');
-      await actor.createStudentResponse(response);
+      return await actor.createStudentResponse(response);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['responses'] });
+    },
+    onError: (error) => {
+      console.error('Create response error:', error);
+      throw error;
     },
   });
 }
@@ -95,10 +111,14 @@ export function useDeleteStudentResponse() {
   return useMutation({
     mutationFn: async (id: bigint) => {
       if (!actor) throw new Error('Actor not initialized');
-      await actor.deleteStudentResponse(id);
+      return await actor.deleteStudentResponse(id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['responses'] });
+    },
+    onError: (error) => {
+      console.error('Delete response error:', error);
+      throw error;
     },
   });
 }

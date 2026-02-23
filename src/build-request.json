@@ -1,54 +1,70 @@
 {
   "kind": "build_request",
-  "title": "Update authentication credentials",
-  "projectName": "Hexa's Beanibazar",
-  "priority": "normal",
+  "title": "Fix test creation issue - restore previous functionality",
+  "priority": "high",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Update the hardcoded authentication credentials in the backend to username 'Hexa's Beanibazar' and password 'Hexas@12345'",
-      "target": "backend",
+      "text": "Restore the test creation functionality to its previous working state by reverting any recent changes that broke the test creation flow in CreateTestPanel and useTestForm",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-last"
         ],
         "quotes": [
-          "Username . Hexa's Beanibazar",
-          "Password.  Hexas@12345"
+          "i am facing issue on creating tests. please fix it as it was previous"
         ]
       },
       "acceptanceCriteria": [
-        "Backend authentication accepts username 'Hexa's Beanibazar' and password 'Hexas@12345'",
-        "Previous credentials ('Sayem Ahtesham' / 'sayem_web_deployment') are replaced"
+        "Test creation modal opens without errors",
+        "All question types can be added successfully",
+        "Form validation works as expected",
+        "Tests can be saved to the backend without errors"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Update the hardcoded authentication credentials in the frontend useAuth hook to username 'Hexa's Beanibazar' and password 'Hexas@12345' to match the backend",
-      "target": "frontend",
+      "text": "Verify that the CreateTest mutation in useQueries properly accepts authentication credentials and creates tests in the backend without validation errors",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-last"
         ],
         "quotes": [
-          "Username . Hexa's Beanibazar",
-          "Password.  Hexas@12345"
+          "i am facing issue on creating tests"
         ]
       },
       "acceptanceCriteria": [
-        "Frontend authentication hook uses username 'Hexa's Beanibazar' and password 'Hexas@12345'",
-        "Credentials match between frontend and backend for successful authentication"
+        "CreateTest mutation completes successfully with valid credentials",
+        "Backend main.mo createTest function processes requests without errors",
+        "Created tests appear in the test list immediately after creation"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Ensure QuestionBuilder component properly handles all question type configurations and media uploads without breaking the test creation process",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All question types (multiple choice, true/false/not given, short answer, long answer, matching, fill-in-the-blank) work correctly",
+        "Media uploads for images and audio complete successfully",
+        "Question options are properly validated and saved"
       ]
     }
   ],
   "constraints": [
-    "Maintain the existing session-based authentication mechanism",
-    "Do not modify the authentication flow logic, only update the credential values"
+    "Do not modify authentication flow or credentials system",
+    "Preserve existing test data structures and backend schema",
+    "Maintain compatibility with existing tests and student responses"
   ],
   "nonGoals": [
-    "Implementing dynamic credential management",
-    "Adding password encryption or hashing",
-    "Creating a user management system"
+    "Adding new test creation features",
+    "Changing the UI design or layout",
+    "Modifying test-taking interface or results display"
   ],
   "imageRequirements": {
     "required": [],

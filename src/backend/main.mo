@@ -1,15 +1,14 @@
 import Array "mo:core/Array";
 import Text "mo:core/Text";
 import Map "mo:core/Map";
-import List "mo:core/List";
 import Order "mo:core/Order";
-import Iter "mo:core/Iter";
 import Runtime "mo:core/Runtime";
 import Int "mo:core/Int";
 import MixinStorage "blob-storage/Mixin";
-
 import Storage "blob-storage/Storage";
+import Migration "migration";
 
+(with migration = Migration.run)
 actor {
   include MixinStorage();
 
@@ -116,6 +115,7 @@ actor {
       Runtime.trap("Unauthorized: Invalid credentials");
     };
     tests.remove(id);
+    invalidateResponsesForTest(id);
   };
 
   // Student Response CRUD operations (no authentication required)
@@ -181,7 +181,7 @@ actor {
 
   // Response viewer panel logic
   module StudentResponse {
-    public func compareByTimestamp(response1 : StudentResponse, response2 : StudentResponse) : Order.Order {
+    public func compareByTimestamp(response1 : StudentResponse, response2 : StudentResponse) : { #less; #greater; #equal } {
       Int.compare(response2.submissionTimestamp, response1.submissionTimestamp);
     };
   };
@@ -213,4 +213,20 @@ actor {
   public query ({ caller }) func getSortedResponses() : async [StudentResponse] {
     responses.values().toArray().map(func(x) { x }).sort(StudentResponse.compareByTimestamp);
   };
+
+  // Helper method to invalidate responses associated with a deleted test
+  func invalidateResponsesForTest(testId : Nat) {
+    let responsesToUpdate = responses.filter(
+      func(_id, response) {
+        response.testId == testId;
+      }
+    );
+
+    responsesToUpdate.forEach(
+      func(_id, _response) {
+        responses.remove(_id);
+      }
+    );
+  };
 };
+

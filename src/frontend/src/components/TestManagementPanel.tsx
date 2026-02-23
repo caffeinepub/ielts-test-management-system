@@ -1,17 +1,28 @@
 import { useState } from 'react';
-import { Plus, Search, FileText } from 'lucide-react';
+import { Plus, Search, FileText, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import CreateTestPanel from './CreateTestPanel';
 import AuthModal from './AuthModal';
-import { useGetAllTests } from '../hooks/useQueries';
+import { useGetAllTests, useDeleteTest } from '../hooks/useQueries';
 import { useTestFiltering } from '../hooks/useTestFiltering';
 import { useAuth } from '../hooks/useAuth';
 import type { Test, TestType } from '../backend';
+import { toast } from 'sonner';
 
 interface TestManagementPanelProps {
   onTestSelect: (test: Test) => void;
@@ -22,9 +33,11 @@ interface TestManagementPanelProps {
 export default function TestManagementPanel({ onTestSelect, onViewResponses, selectedTestId }: TestManagementPanelProps) {
   const [showCreatePanel, setShowCreatePanel] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [testToDelete, setTestToDelete] = useState<Test | null>(null);
   const { data: tests = [], isLoading } = useGetAllTests();
   const { filteredTests, searchTerm, setSearchTerm, testTypeFilter, setTestTypeFilter } = useTestFiltering(tests);
   const { isAuthenticated, login, getCredentials } = useAuth();
+  const deleteTestMutation = useDeleteTest();
 
   const handleCreateTestClick = () => {
     if (isAuthenticated) {
@@ -36,6 +49,37 @@ export default function TestManagementPanel({ onTestSelect, onViewResponses, sel
 
   const handleAuthSuccess = () => {
     setShowCreatePanel(true);
+  };
+
+  const handleDeleteClick = (e: React.MouseEvent, test: Test) => {
+    e.stopPropagation();
+    if (isAuthenticated) {
+      setTestToDelete(test);
+    } else {
+      setShowAuthModal(true);
+    }
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!testToDelete) return;
+
+    const credentials = getCredentials();
+    if (!credentials) {
+      toast.error('Authentication required');
+      return;
+    }
+
+    try {
+      await deleteTestMutation.mutateAsync({
+        credentials,
+        id: testToDelete.id,
+      });
+      toast.success('Test deleted successfully');
+      setTestToDelete(null);
+    } catch (error) {
+      toast.error('Failed to delete test');
+      console.error('Delete error:', error);
+    }
   };
 
   const getTestTypeBadgeVariant = (type: TestType) => {
@@ -117,9 +161,19 @@ export default function TestManagementPanel({ onTestSelect, onViewResponses, sel
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between gap-2">
                     <CardTitle className="text-base leading-tight">{test.title}</CardTitle>
-                    <Badge variant={getTestTypeBadgeVariant(test.testType)} className="shrink-0">
-                      {getTestTypeLabel(test.testType)}
-                    </Badge>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <Badge variant={getTestTypeBadgeVariant(test.testType)}>
+                        {getTestTypeLabel(test.testType)}
+                      </Badge>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                        onClick={(e) => handleDeleteClick(e, test)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                   <CardDescription className="text-xs">
                     {test.questions.length} question{test.questions.length !== 1 ? 's' : ''}
@@ -144,6 +198,27 @@ export default function TestManagementPanel({ onTestSelect, onViewResponses, sel
           credentials={getCredentials()}
         />
       )}
+
+      <AlertDialog open={!!testToDelete} onOpenChange={(open) => !open && setTestToDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Test</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete "{testToDelete?.title}"? This action cannot be undone and will also delete all associated student responses.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={deleteTestMutation.isPending}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleConfirmDelete}
+              disabled={deleteTestMutation.isPending}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {deleteTestMutation.isPending ? 'Deleting...' : 'Delete'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
