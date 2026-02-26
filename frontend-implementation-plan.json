@@ -1,0 +1,30 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Require username and password authentication to delete responses",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Add username and password authentication modal before allowing response deletion in ResponseViewer",
+      "acceptanceCriteria": [
+        "Clicking the delete button on any response in ResponseViewer opens the AuthModal dialog.",
+        "The AuthModal prompts for both a username and a password field.",
+        "If the credentials are invalid, an error message is shown and the deletion is not performed.",
+        "If the credentials are valid, the response is deleted and the list updates accordingly.",
+        "It is not possible to delete a response without successfully passing the username/password authentication step."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ResponseViewer.tsx",
+          "operation": "modify",
+          "description": "Integrate AuthModal before executing the delete operation. When the user clicks delete on a response, open the AuthModal to collect credentials. Pass a validation callback to AuthModal that returns true for valid credentials. On successful authentication, invoke the deleteStudentResponse mutation with the response ID. Handle errors from both authentication failure and deletion failure, displaying appropriate error messages to the user. Use the existing AuthModal component for credential collection."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Update the deleteStudentResponse mutation to accept AuthCredentials as a parameter if the backend requires it for deletion authorization. If the backend deleteStudentResponse method currently does not require credentials, ensure the frontend mutation properly handles the authentication flow by validating credentials locally before calling the backend method. Ensure proper error handling and query invalidation after successful deletion."
+        }
+      ]
+    }
+  ]
+}

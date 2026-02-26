@@ -1,0 +1,40 @@
+{
+  "kind": "build_request",
+  "title": "Require username and password authentication to delete responses",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "When a user attempts to delete a student response in ResponseViewer, display an authentication modal (AuthModal) that requires both a username and password before the deletion is executed. The delete action must only proceed if valid credentials are provided.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "to delete reponses, useraname and password is needed. it still not have password and username to delete response"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Clicking the delete button on any response in ResponseViewer opens the AuthModal dialog.",
+        "The AuthModal prompts for both a username and a password field.",
+        "If the credentials are invalid, an error message is shown and the deletion is not performed.",
+        "If the credentials are valid, the response is deleted and the list updates accordingly.",
+        "It is not possible to delete a response without successfully passing the username/password authentication step."
+      ]
+    }
+  ],
+  "constraints": [
+    "Use the existing AuthModal component for credential collection — do not create a new authentication dialog.",
+    "Do not modify files in frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui."
+  ],
+  "nonGoals": [
+    "Adding authentication to any other action besides deleting responses.",
+    "Changing the backend authentication or credential validation logic.",
+    "Modifying the student test-taking or submission flow."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

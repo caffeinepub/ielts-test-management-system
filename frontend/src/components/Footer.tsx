@@ -1,0 +1,14 @@
+export default function Footer() {
+  return (
+    <footer className="z-10 border-t border-border bg-background py-6 shadow-sm">
+      <div className="container mx-auto px-4 text-center">
+        <p className="text-sm text-muted-foreground">
+          Powered By <span className="font-semibold text-foreground">Hexa's Beanibazar</span>
+        </p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Developed By <span className="text-foreground">Sayem Ahtesham</span>
+        </p>
+      </div>
+    </footer>
+  );
+}
